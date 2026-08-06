@@ -44,7 +44,7 @@ export default function ShopbyCategory() {
               </div>
               <img
                 className="techimg"
-                src="../../../React Ecommerce Reda Tech/img/Tech.png"
+                src="./img/Tech.png"
               />
             </Paper>
           </Grid>
@@ -58,10 +58,7 @@ export default function ShopbyCategory() {
                   <Typography variant="h6">View More</Typography>
                 </Link>
               </div>
-              <img
-                className="watchesimg"
-                src="../../../React Ecommerce Reda Tech/img/Watches.png"
-              />
+              <img className="watchesimg" src="./img/Watches.png" />
             </Paper>
           </Grid>
           <Grid size={{ xs: 12, sm: 6, lg: 4, md: 4 }}>
@@ -76,7 +73,7 @@ export default function ShopbyCategory() {
               </div>
               <img
                 className="sunglassesimg"
-                src="../../../React Ecommerce Reda Tech/img/Sunglasses.png"
+                src="./img/Sunglasses.png"
               />
             </Paper>
           </Grid>
@@ -100,7 +97,7 @@ export default function ShopbyCategory() {
 
               <img
                 className="accessoriesimg"
-                src="../../../React Ecommerce Reda Tech/img/Accessories2.png"
+                src="./img/Accessories2.png"
               />
             </Paper>
           </Grid>

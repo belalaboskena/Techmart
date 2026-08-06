@@ -16,17 +16,17 @@ export default function Slider() {
   const slides = [
     {
       title: "Discover the Latest Tech",
-      img: "../../../React Ecommerce Reda Tech/img/Hero 1.png",
+      img: "./img/Hero 1.png",
       id: "shop",
     },
     {
       title: "Premium Collection",
-      img: "../../../React Ecommerce Reda Tech/img/Hero 3.png",
+      img: "./img/Hero 3.png",
       id: "best-sellers",
     },
     {
       title: "Summer Sale",
-      img: "../../../React Ecommerce Reda Tech/img/Hero 2.png",
+      img: "./img/Hero 2.png",
       id: "sales",
     },
   ];

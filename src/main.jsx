@@ -6,7 +6,7 @@ import App from "./App.jsx";
 import Storeprovider from "./contexts/storecontext.jsx";
 import { SnackbarProvider } from "notistack";
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+  <BrowserRouter basename="/Techmart">
     <StrictMode>
       <Storeprovider>
         <SnackbarProvider maxSnack={3}>
