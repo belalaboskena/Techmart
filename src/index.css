@@ -1,0 +1,64 @@
+:root {
+  /* ===== Primary Colors ===== */
+  --primary: #1976d2;
+  --primary-light: #1976d229;
+
+  /* ===== Accent Colors ===== */
+  --secondary: #ff9800;
+  --success: #4caf50;
+  --danger: #f44336;
+
+  /* ===== Background ===== */
+  --background: #ebebeb;
+  --surface: #f4f4f4;
+
+  /* ===== Text ===== */
+  --text-primary: #212121;
+  --text-secondary: #424242;
+  --text-light: #696969;
+
+  /* ===== Border ===== */
+  --border: #e0e0e0;
+
+  /* ===== Icons ===== */
+  --icon: #424242;
+  --icon-hover: var(--primary);
+
+  /* ===== Buttons ===== */
+  --btn-primary: var(--primary);
+  --btn-primary-hover: var(--primary-dark);
+
+  /* ===== Shadow ===== */
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* ===== Radius ===== */
+  --radius: 10px;
+
+  /* ===== Transition ===== */
+  --transition: 0.3s ease;
+}
+body {
+  height: 100vh;
+}
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+.Categorysinput {
+}
+.Selectinput {
+  background-color: #fff;
+  max-height: 500px;
+}
+.Selectinput {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.selctcontauner {
+}
+a {
+  text-decoration: none;
+  color: black;
+}

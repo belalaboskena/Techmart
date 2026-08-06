@@ -1,0 +1,11 @@
+.whychosseus-body {
+  background-color: var(--background);
+  padding: 50px;
+}
+.icons-div {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-radius: 18px;
+  padding: 8px;
+  margin-bottom: 10px;
+}

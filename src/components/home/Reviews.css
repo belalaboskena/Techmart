@@ -1,0 +1,17 @@
+.review-card {
+  position: relative !important;
+  background-color: var(--background) !important;
+  overflow: visible !important;
+  border-radius: 10px !important;
+  padding: 20px;
+  height: 223px;
+}
+.avatar {
+  position: absolute !important;
+  width: 100px !important;
+  height: 100px !important;
+  right: -10px;
+  top: 10px;
+  border: 10px solid white;
+  transform: translatey(-50%);
+}

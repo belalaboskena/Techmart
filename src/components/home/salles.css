@@ -1,0 +1,59 @@
+.salles-body {
+  background-color: var(--text-primary);
+  padding: 50px;
+  margin-bottom: 50px;
+  color: var(--background);
+}
+.salles-card {
+  background-color: var(--text-secondary) !important;
+  color: var(--background) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  overflow: visible;
+}
+
+.salles-cardMedia {
+  background-color: var(--text-light) !important;
+  display: flex !important;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+}
+
+.salles-cardMedia .discountPercentage {
+  position: absolute;
+  padding: 2px 3px;
+  background-color: var(--danger);
+  border-radius: 16px;
+  left: 10px;
+  top: 10px;
+  width: 100px;
+  text-align: center;
+}
+
+.salles-cardMedia img {
+  transition: 0.35s ease;
+}
+.salles-card:hover .salles-cardMedia img {
+  transform: scale(1.08);
+}
+.salles-price {
+  display: flex;
+  justify-content: center;
+}
+.old-price {
+  color: var(--danger);
+  margin-right: 15px !important;
+  text-decoration: line-through;
+}
+
+.salles-btn {
+  width: 100%;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .salles-cardMedia {
+    height: 150px;
+  }
+}

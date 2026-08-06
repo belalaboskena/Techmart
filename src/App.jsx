@@ -1,0 +1,22 @@
+import { Routes, Route } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+
+
+import Home from "./Pages/Home";
+import Cart from "./Pages/Cart";
+import Favourites from "./Pages/Favourites";
+import ProductDetails from "./Pages/ProductDetails";
+import Shop from "./Pages/Shop";
+export default function App() {
+  return (
+    <Routes>
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/shop/:category" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/favourites" element={<Favourites />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+      </Route>
+    </Routes>
+  );
+}
