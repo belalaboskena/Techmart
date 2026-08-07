@@ -12,7 +12,7 @@ function Reviews() {
     {
       username: "John Dorsey",
       bio: "Verified Buyer",
-      avatar: "./img/team-02.png",
+      avatar: `${import.meta.env.BASE_URL}img/team-02.png`,
       review:
         "TechMart has become my go-to for all accessories.the packaging was premium. Highly recommended!",
       rate: 5,
@@ -20,7 +20,7 @@ function Reviews() {
     {
       username: "Sarah Lim",
       bio: "Music Enthusiast",
-      avatar: "./img/team-04.png",
+      avatar: `${import.meta.env.BASE_URL}img/team-04.png`,
       review:
         "The minixup speaker is actually amazing. The bass is deep and the LED ring looks sick at night. Totally worth the price.",
       rate: 5,
@@ -28,7 +28,7 @@ function Reviews() {
     {
       username: "Marcus Knight",
       bio: "Tech Reviewer",
-      avatar: "./img/user.png",
+      avatar: `${import.meta.env.BASE_URL}img/user.png`,
       review:
         "Excellent customer service. I had an issue with my delivery and they resolved it within hours. Will definitely shop here again.",
       rate: 4,
@@ -49,10 +49,7 @@ function Reviews() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={4} sx={{ overflow: "visible" }}>
           {reviews.map((review, index) => (
-            <Grid
-              key={index}
-              size={{ xs: 12, sm: 6, lg: 4 }}
-            >
+            <Grid key={index} size={{ xs: 12, sm: 6, lg: 4 }}>
               <Card className="review-card" sx={{ width: "100%" }}>
                 <Avatar className="avatar" src={review.avatar} />
 

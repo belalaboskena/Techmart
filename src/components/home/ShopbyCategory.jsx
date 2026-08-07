@@ -42,10 +42,7 @@ export default function ShopbyCategory() {
                   <Typography variant="h6">View More</Typography>
                 </Link>
               </div>
-              <img
-                className="techimg"
-                src="./img/Tech.png"
-              />
+              <img className="techimg" src={`${import.meta.env.BASE_URL}img/Tech.png`} />
             </Paper>
           </Grid>
           <Grid size={{ xs: 12, sm: 6, lg: 4, md: 4 }}>
@@ -58,7 +55,7 @@ export default function ShopbyCategory() {
                   <Typography variant="h6">View More</Typography>
                 </Link>
               </div>
-              <img className="watchesimg" src="./img/Watches.png" />
+              <img className="watchesimg"src={`${import.meta.env.BASE_URL}img/Watches.png`} />
             </Paper>
           </Grid>
           <Grid size={{ xs: 12, sm: 6, lg: 4, md: 4 }}>
@@ -71,10 +68,7 @@ export default function ShopbyCategory() {
                   <Typography variant="h6">View More</Typography>
                 </Link>
               </div>
-              <img
-                className="sunglassesimg"
-                src="./img/Sunglasses.png"
-              />
+              <img className="sunglassesimg" src={`${import.meta.env.BASE_URL}img/Sunglasses.png`} />
             </Paper>
           </Grid>
 
@@ -95,10 +89,7 @@ export default function ShopbyCategory() {
                 </Link>
               </div>
 
-              <img
-                className="accessoriesimg"
-                src="./img/Accessories2.png"
-              />
+              <img className="accessoriesimg" src={`${import.meta.env.BASE_URL}img/Accessories2.png`} />
             </Paper>
           </Grid>
 

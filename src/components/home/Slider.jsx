@@ -16,17 +16,17 @@ export default function Slider() {
   const slides = [
     {
       title: "Discover the Latest Tech",
-      img: "./img/Hero 1.png",
+      img: `${import.meta.env.BASE_URL}img/Hero 1.png`,
       id: "shop",
     },
     {
       title: "Premium Collection",
-      img: "./img/Hero 3.png",
+      img: `${import.meta.env.BASE_URL}img/Hero 3.png`,
       id: "best-sellers",
     },
     {
       title: "Summer Sale",
-      img: "./img/Hero 2.png",
+      img: `${import.meta.env.BASE_URL}img/Hero 2.png`,
       id: "sales",
     },
   ];
