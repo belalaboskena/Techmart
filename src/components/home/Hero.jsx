@@ -2,7 +2,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import Container from "@mui/material/Container";
 
-import "./slider.css";
+import "./hero.css";
 
 // Import Swiper styles
 import "swiper/css";
@@ -43,7 +43,10 @@ export default function Slider() {
     });
   };
   return (
-    <Container maxWidth="lg" sx={{ height: "600px", marginBottom: "25px" }}>
+    <Container
+      maxWidth="lg"
+      sx={{ height: "570px", marginBottom: "25px" }}
+    >
       <Swiper
         loop={true}
         pagination={{

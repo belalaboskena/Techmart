@@ -9,7 +9,7 @@
   background-color: var(--background) !important;
   position: relative;
   overflow: hidden;
-  height: 250px;
+  height: 220px;
   width: auto;
 }
 .paper img {
@@ -61,22 +61,22 @@
 .techimg {
   right: -5%;
   bottom: -6%;
-  width: 400px;
+  width: 360px;
 }
 .watchesimg {
   right: -10%;
   bottom: -34%;
-  width: 230px;
+  width: 210px;
 }
 .sunglassesimg {
   right: 3%;
   bottom: -3%;
-  width: 230px;
+  width: 210px;
 }
 .accessoriesimg {
   right: 0%;
   top: -18%;
-  width: 230px;
+  width: 210px;
 }
 
 /* responsive */
@@ -95,10 +95,10 @@
   .techimg {
     right: -5%;
     bottom: -1%;
-    width: 250px;
+    width: 220px;
   }
   .watchesimg {
-    width: 200px;
+    width: 180px;
     right: 0%;
     bottom: -17%;
   }
@@ -106,19 +106,18 @@
   .sunglassesimg {
     right: 3%;
     top: 0%;
-    width: 230px;
   }
   .accessoriesimg {
     right: 0%;
     top: 6%;
-    width: 180px;
+    width: 160px;
   }
 }
 @media (max-width: 600px) {
   .techimg {
     right: -5%;
     bottom: -1%;
-    width: 300px;
+    width: 250px;
   }
 
   .sunglassesimg {

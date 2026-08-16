@@ -78,7 +78,7 @@ function Newarrivals() {
 
   return (
     <Container className="newarrivals-body" maxWidth="false">
-      <Container maxWidth="lg" sx={{ marginBottom: "50px" }}>
+      <Container maxWidth="lg" >
         <Typography
           gutterBottom
           variant="h4"

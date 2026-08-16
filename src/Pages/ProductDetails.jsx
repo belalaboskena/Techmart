@@ -77,7 +77,7 @@ function ProductDetails() {
       <Container
         className="newarrivals-body"
         maxWidth="false"
-        sx={{ marginBottom: "50px", marginTop: "5px" }}
+        sx={{ marginBottom: "50px" }}
       >
         <Container maxWidth="lg">
           <Grid container spacing={4}>

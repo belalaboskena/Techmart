@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 export default function ShopbyCategory() {
   return (
-    <Container maxWidth="lg" sx={{ marginBottom: "100px", paddingTop: "25px" }}>
+    <Container maxWidth="lg" sx={{ marginBottom: "50px", paddingTop: "25px" }}>
       <Typography
         gutterBottom
         variant="h4"

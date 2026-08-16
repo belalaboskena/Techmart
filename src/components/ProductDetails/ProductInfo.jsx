@@ -187,7 +187,6 @@ function ProductInfo({ product }) {
         <Paper
           elevation={0}
           sx={{
-            p: 2,
             flex: 1,
             backgroundColor: "inherit",
           }}
@@ -208,7 +207,6 @@ function ProductInfo({ product }) {
         <Paper
           elevation={0}
           sx={{
-            p: 2,
             flex: 1,
             backgroundColor: "inherit",
           }}
@@ -229,12 +227,15 @@ function ProductInfo({ product }) {
       <Paper
         elevation={0}
         sx={{
-          p: 2,
           flex: 1,
           backgroundColor: "inherit",
         }}
       >
-        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{ alignItems: "center", mt: "16px" }}
+        >
           <KeyboardReturnOutlinedIcon color="error" />
 
           <Box>

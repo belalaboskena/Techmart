@@ -32,10 +32,8 @@ function HomeHeader() {
       <Container maxWidth="lg">
         <Toolbar
           sx={{
-            py: 1.5,
             display: "flex",
             flexWrap: "wrap",
-            rowGap: 2,
             justifyContent: "space-between",
           }}
         >
@@ -65,7 +63,8 @@ function HomeHeader() {
           {/* Search */}
           <Box
             sx={{
-              order: { xs: 3, md: 2 },
+              marginBottom: { xs: "10px", md: "0px" },
+              order: { xs: 3, md: 3 },
               width: {
                 xs: "100%",
                 md: 420,
@@ -81,7 +80,9 @@ function HomeHeader() {
             sx={{
               display: "flex",
               alignItems: "center",
+              justifyContent: "end",
               gap: 1,
+              flex: { xs: 1, md: 0 },
               order: { xs: 2, md: 3 },
             }}
           >

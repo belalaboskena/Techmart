@@ -86,8 +86,8 @@ function ProductGallery({ product }) {
           src={currentImage}
           alt={product.title}
           sx={{
-            width: "100%",
-            height: "100%",
+            width: "90%",
+            height: "90%",
             objectFit: "contain",
           }}
         />

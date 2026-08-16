@@ -9,6 +9,7 @@
 .swiper-slide {
   position: relative;
   display: flex !important;
+  overflow: hidden !important;
 }
 
 .swiper-slide .content {

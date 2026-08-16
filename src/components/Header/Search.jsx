@@ -15,12 +15,11 @@ import axios from "axios";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: 30,
-  backgroundColor: "#f5f5f5",
+  backgroundColor: "#ebebeb",
   "&:hover": {
     backgroundColor: "#ededed",
   },
   width: "100%",
-  maxWidth: "450px",
 }));
 
 const SearchIconWrapper = styled("div")({

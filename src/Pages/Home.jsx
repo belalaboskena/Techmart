@@ -1,4 +1,4 @@
-import Slider from "../components/home/Slider";
+import Hero from "../components/home/Hero";
 import ShopbyCategory from "../components/home/ShopbyCategory";
 import Bestsellers from "../components/home/Bestsellers";
 import Sales from "../components/home/Salles";
@@ -33,7 +33,7 @@ function Home() {
       <section id="home">
         <HomeHeader />
       </section>
-      <Slider />
+      <Hero />
       <section id="shop">
         <ShopbyCategory />
       </section>
