@@ -11,6 +11,10 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   overflow: visible;
 }
+.salles-wish-button {
+  background-color: var(--text-secondary) !important;
+  color: var(--background) !important;
+}
 
 .salles-cardMedia {
   background-color: var(--text-light) !important;

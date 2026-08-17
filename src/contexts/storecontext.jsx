@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useEffect } from "react";
+import { createContext, useContext, useReducer } from "react";
 import StoreReduce from "../reducer/StoreReduce";
 
 const storecontext = createContext([]);
@@ -9,8 +9,19 @@ const initialState = {
 
 const Storeprovider = ({ children }) => {
   const [reducerproducts, dispatch] = useReducer(StoreReduce, initialState);
+  const NewarrivalsIDS = [159, 99, 107, 94];
+  const BestsellersIDS = [123, 101, 78, 154];
+  const SallesIDS = [104, 109, 106];
   return (
-    <storecontext.Provider value={{ reducerproducts, dispatch }}>
+    <storecontext.Provider
+      value={{
+        reducerproducts,
+        dispatch,
+        NewarrivalsIDS,
+        BestsellersIDS,
+        SallesIDS,
+      }}
+    >
       {children}
     </storecontext.Provider>
   );

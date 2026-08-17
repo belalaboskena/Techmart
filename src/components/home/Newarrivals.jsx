@@ -21,18 +21,19 @@ import HomeLoading from "./HomeLoading.jsx";
 import "./Newarrivals.css";
 
 function Newarrivals() {
-  const { reducerproducts, dispatch } = UseStore();
+  const { reducerproducts, dispatch, NewarrivalsIDS } = UseStore();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const ids = [159, 99, 107, 94];
   useEffect(() => {
     async function getProducts() {
       try {
         const responses = await Promise.all(
-          ids.map((id) => axios.get(`https://dummyjson.com/products/${id}`)),
+          NewarrivalsIDS.map((id) =>
+            axios.get(`https://dummyjson.com/products/${id}`),
+          ),
         );
 
         setProducts(responses.map((res) => res.data));
@@ -78,7 +79,7 @@ function Newarrivals() {
 
   return (
     <Container className="newarrivals-body" maxWidth="false">
-      <Container maxWidth="lg" >
+      <Container maxWidth="lg">
         <Typography
           gutterBottom
           variant="h4"

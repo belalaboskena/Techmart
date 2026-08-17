@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { Box, Paper } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { UseStore } from "../../contexts/storecontext";
 
 function ProductGallery({ product }) {
+  const { SallesIDS } = UseStore();
+  const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(product?.images[0]);
 
   const currentImage = selectedImage;
@@ -36,6 +40,11 @@ function ProductGallery({ product }) {
         {product?.images?.map((image, index) => (
           <Paper
             key={index}
+            className={
+              SallesIDS.find((salleid) => salleid == id)
+                ? "salles-cardMedia"
+                : ""
+            }
             elevation={selectedImage === image ? 5 : 1}
             onClick={() => setSelectedImage(image)}
             sx={{
@@ -72,6 +81,9 @@ function ProductGallery({ product }) {
 
       <Paper
         elevation={2}
+        className={
+          SallesIDS.find((salleid) => salleid == id) ? "salles-cardMedia" : ""
+        }
         sx={{
           flex: 1,
           height: "100%",

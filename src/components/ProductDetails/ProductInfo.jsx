@@ -14,10 +14,13 @@ import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
 import KeyboardReturnOutlinedIcon from "@mui/icons-material/KeyboardReturnOutlined";
 import { UseStore } from "../../contexts/storecontext";
 import { useSnackbar } from "notistack";
+import { useParams } from "react-router-dom";
 
 function ProductInfo({ product }) {
   // ===
-  const { reducerproducts, dispatch } = UseStore();
+  const { reducerproducts, dispatch, SallesIDS } = UseStore();
+  const { id } = useParams();
+
   const { enqueueSnackbar } = useSnackbar();
 
   function togglecart(id, weight, price, stock) {
@@ -63,7 +66,7 @@ function ProductInfo({ product }) {
       {/* Title */}
 
       <Typography
-        variant="h4"
+        variant="h5"
         sx={{
           fontWeight: 700,
           mb: 1,
@@ -94,7 +97,9 @@ function ProductInfo({ product }) {
         <Typography
           sx={{
             textDecoration: "line-through",
-            color: "text.secondary",
+            visibility: SallesIDS.find((salleid) => salleid == id)
+              ? "visible"
+              : "hidden",
           }}
         >
           ${oldPrice}
@@ -103,6 +108,11 @@ function ProductInfo({ product }) {
         <Chip
           color="error"
           size="small"
+          sx={{
+            visibility: SallesIDS.find((salleid) => salleid == id)
+              ? "visible"
+              : "hidden",
+          }}
           label={`Save ${product.discountPercentage.toFixed(0)}%`}
         />
       </Stack>
@@ -161,6 +171,9 @@ function ProductInfo({ product }) {
       <Button
         variant="contained"
         fullWidth
+        className={
+          SallesIDS.find((salleid) => salleid == id) ? "salles-wish-button" : ""
+        }
         color="inherit"
         sx={{
           flex: 1,
@@ -173,10 +186,11 @@ function ProductInfo({ product }) {
         }}
       >
         {reducerproducts.favourites.includes(product.id) ? (
-          <>Remove from Wish list</>
+          <Typography>Remove from Wish list</Typography>
         ) : (
           <>
-            <FavoriteIcon color="error" /> Add to Wish list
+            <FavoriteIcon color="error" />{" "}
+            <Typography>Add to Wish list</Typography>
           </>
         )}
       </Button>
@@ -188,7 +202,8 @@ function ProductInfo({ product }) {
           elevation={0}
           sx={{
             flex: 1,
-            backgroundColor: "inherit",
+            backgroundColor: "transparent",
+            color: "inherit",
           }}
         >
           <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
@@ -208,7 +223,8 @@ function ProductInfo({ product }) {
           elevation={0}
           sx={{
             flex: 1,
-            backgroundColor: "inherit",
+            backgroundColor: "transparent",
+            color: "inherit",
           }}
         >
           <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
@@ -228,7 +244,8 @@ function ProductInfo({ product }) {
         elevation={0}
         sx={{
           flex: 1,
-          backgroundColor: "inherit",
+          backgroundColor: "transparent",
+          color: "inherit",
         }}
       >
         <Stack

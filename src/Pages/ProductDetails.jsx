@@ -11,11 +11,14 @@ import TechnicalSpecifications from "../components/ProductDetails/TechnicalSpeci
 import CustomerReviews from "../components/ProductDetails/CustomerReviews";
 import ProductsSlider from "../components/ProductDetails/ProductsSlider";
 import MainHeader from "../components/Header/MainHeader";
+import { UseStore } from "../contexts/storecontext";
 
 function ProductDetails() {
   const [product, setProduct] = useState(null);
 
   const [loading, setLoading] = useState(true);
+
+  const { SallesIDS } = UseStore();
 
   const { id } = useParams();
 
@@ -75,7 +78,11 @@ function ProductDetails() {
     <>
       <MainHeader />
       <Container
-        className="newarrivals-body"
+        className={
+          SallesIDS.find((salleid) => salleid == id)
+            ? "salles-body"
+            : "newarrivals-body"
+        }
         maxWidth="false"
         sx={{ marginBottom: "50px" }}
       >

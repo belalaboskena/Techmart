@@ -22,13 +22,11 @@ import HomeLoading from "./HomeLoading.jsx";
 import "./bestseller.css";
 
 function Bestsellers() {
-  const { reducerproducts, dispatch } = UseStore();
+  const { reducerproducts, dispatch, BestsellersIDS } = UseStore();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { enqueueSnackbar } = useSnackbar();
-
-  const ids = [123, 101, 78, 154];
 
   function togglecart(id, weight, price, stock) {
     dispatch({
@@ -60,7 +58,9 @@ function Bestsellers() {
     async function getProducts() {
       try {
         const responses = await Promise.all(
-          ids.map((id) => axios.get(`https://dummyjson.com/products/${id}`)),
+          BestsellersIDS.map((id) =>
+            axios.get(`https://dummyjson.com/products/${id}`),
+          ),
         );
 
         setProducts(responses.map((res) => res.data));

@@ -11,19 +11,22 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import { SalesLoading } from "./HomeLoading";
+import { UseStore } from "../../contexts/storecontext.jsx";
 
 import "./salles.css";
 
 function Salles() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { SallesIDS } = UseStore();
 
-  const ids = [104, 109, 106];
   useEffect(() => {
     async function getProducts() {
       try {
         const responses = await Promise.all(
-          ids.map((id) => axios.get(`https://dummyjson.com/products/${id}`)),
+          SallesIDS.map((id) =>
+            axios.get(`https://dummyjson.com/products/${id}`),
+          ),
         );
 
         setProducts(responses.map((res) => res.data));
