@@ -10,6 +10,7 @@ import MainHeader from "../components/Header/MainHeader";
 import Newarrivals from "../components/home/Newarrivals";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import ScrollToHero from "../components/home/ScrollToHero";
 function Home() {
   const location = useLocation();
 
@@ -30,10 +31,13 @@ function Home() {
   return (
     <>
       <MainHeader />
-      <section id="home">
+      <section id="hero">
         <HomeHeader />
       </section>
-      <Hero />
+      <section>
+        <Hero />
+      </section>
+
       <section id="shop">
         <ShopbyCategory />
       </section>
@@ -51,6 +55,7 @@ function Home() {
         <WhyChosseUs />
       </section>
       <Reviews />
+      <ScrollToHero />
     </>
   );
 }

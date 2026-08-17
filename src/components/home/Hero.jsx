@@ -45,7 +45,10 @@ export default function Slider() {
   return (
     <Container
       maxWidth="lg"
-      sx={{ height: "570px", marginBottom: "25px" }}
+      sx={{
+        height: { xs: "270px", sm: "450px", md: "570px" },
+        marginBottom: "25px",
+      }}
     >
       <Swiper
         loop={true}
@@ -64,10 +67,14 @@ export default function Slider() {
           <SwiperSlide>
             <div className="content">
               <Typography
-                variant="h4"
                 sx={{
+                  fontSize: {
+                    xs: "1rem",
+                    sm: "2rem",
+                    md: "2.5rem",
+                  },
                   fontWeight: 1000,
-                  mb: 3,
+                  marginBottom: { xs: "10px", md: "20px" },
                   color: "white",
                 }}
               >
@@ -77,6 +84,12 @@ export default function Slider() {
               <Button
                 onClick={() => scrollToSection(slide.id)}
                 variant="contained"
+                sx={{
+                  fontSize: {
+                    xs: "0.7rem",
+                    md: "1rem",
+                  },
+                }}
               >
                 Shop now
               </Button>

@@ -54,6 +54,7 @@ function EmptyFavourite() {
           px: 4,
           py: 1.3,
           borderRadius: 3,
+          mb: 1,
           textTransform: "none",
         }}
       >

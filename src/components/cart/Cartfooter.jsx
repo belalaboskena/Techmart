@@ -32,6 +32,7 @@ function CartFooter() {
             textDecoration: "none",
             color: "primary.main",
             fontWeight: 500,
+            m: 0,
           }}
         >
           <ArrowBackOutlinedIcon />
