@@ -24,16 +24,6 @@
   overflow: visible;
 }
 
-.salles-cardMedia .discountPercentage {
-  position: absolute;
-  padding: 2px 3px;
-  background-color: var(--danger);
-  border-radius: 16px;
-  left: 10px;
-  top: 10px;
-  width: 100px;
-  text-align: center;
-}
 
 .salles-cardMedia img {
   transition: 0.35s ease;

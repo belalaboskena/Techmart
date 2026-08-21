@@ -9,9 +9,9 @@ const initialState = {
 
 const Storeprovider = ({ children }) => {
   const [reducerproducts, dispatch] = useReducer(StoreReduce, initialState);
-  const NewarrivalsIDS = [159, 99, 107, 94];
+  const NewarrivalsIDS = [159, 99, 107, 78, 112];
   const BestsellersIDS = [123, 101, 78, 154];
-  const SallesIDS = [104, 109, 106];
+  const SallesIDS = [104, 109, 106,  112];
   return (
     <storecontext.Provider
       value={{

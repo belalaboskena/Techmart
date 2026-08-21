@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
+import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -99,7 +100,7 @@ function Newarrivals() {
         </Typography>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            {products.map((product) => (
+            {products.slice(0, 4).map((product) => (
               <Grid key={product.id} size={{ xs: 12, sm: 6, lg: 3 }}>
                 <Link to={`/product/${product.id}`}>
                   <Card className="bestseler-card" sx={{ width: "100%" }}>
@@ -108,9 +109,11 @@ function Newarrivals() {
                       title={product.title}
                     >
                       <img src={product.thumbnail}></img>
-                      <Typography variant="caption" className="new-patch">
-                        NEW
-                      </Typography>
+                      <div className="patches">
+                        <Typography variant="caption" className="newarrivals-patch">
+                          NEW
+                        </Typography>
+                      </div>
                     </CardMedia>
 
                     <CardContent className="bestseler-cardcontent">
@@ -194,6 +197,15 @@ function Newarrivals() {
                 </Link>
               </Grid>
             ))}
+            <Link
+              to="/shop/new-arrivels"
+              style={{
+                margin: "auto",
+                display: NewarrivalsIDS.length > 4 ? "block" : "none",
+              }}
+            >
+              <Button variant="contained">View More</Button>
+            </Link>
           </Grid>
         </Box>
       </Container>

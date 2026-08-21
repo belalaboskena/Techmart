@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { Box, Paper } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { UseStore } from "../../contexts/storecontext";
+import Typography from "@mui/material/Typography";
 
 function ProductGallery({ product }) {
-  const { SallesIDS } = UseStore();
+  const { NewarrivalsIDS, BestsellersIDS, SallesIDS } = UseStore();
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(product?.images[0]);
 
@@ -91,18 +92,48 @@ function ProductGallery({ product }) {
           justifyContent: "center",
           alignItems: "center",
           p: 3,
+          position: "relative",
         }}
       >
         <Box
+          alt={product.title}
           component="img"
           src={currentImage}
-          alt={product.title}
           sx={{
             width: "90%",
             height: "90%",
             objectFit: "contain",
           }}
         />
+        <div className="patches">
+          <Typography
+            variant="caption"
+            className="newarrivals-patch"
+            sx={{
+              display: NewarrivalsIDS.includes(product.id) ? "block" : "none",
+            }}
+          >
+            NEW
+          </Typography>
+          <Typography
+            variant="caption"
+            className="bestseller-patch"
+            sx={{
+              display: BestsellersIDS.includes(product.id) ? "block" : "none",
+            }}
+          >
+            BEST SELLER
+          </Typography>
+          <Typography
+            variant="caption"
+            className="sales-patch"
+            sx={{
+              display: SallesIDS.includes(product.id) ? "block" : "none",
+            }}
+          >
+            SALE 
+          </Typography>
+        </div>
       </Paper>
     </Box>
   );

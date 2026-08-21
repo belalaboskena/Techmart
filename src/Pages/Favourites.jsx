@@ -25,7 +25,13 @@ import { useSnackbar } from "notistack";
 function Favourites() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { reducerproducts, dispatch } = UseStore();
+  const {
+    reducerproducts,
+    dispatch,
+    NewarrivalsIDS,
+    BestsellersIDS,
+    SallesIDS,
+  } = UseStore();
   const { enqueueSnackbar } = useSnackbar();
 
   function togglecart(id, weight, price, stock) {
@@ -122,6 +128,41 @@ function Favourites() {
                       title={product.title}
                     >
                       <img src={product.thumbnail}></img>
+                      <div className="patches">
+                        <Typography
+                          variant="caption"
+                          className="newarrivals-patch"
+                          sx={{
+                            display: NewarrivalsIDS.includes(product.id)
+                              ? "block"
+                              : "none",
+                          }}
+                        >
+                          NEW
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          className="bestseller-patch"
+                          sx={{
+                            display: BestsellersIDS.includes(product.id)
+                              ? "block"
+                              : "none",
+                          }}
+                        >
+                          BEST SELLER
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          className="sales-patch"
+                          sx={{
+                            display: SallesIDS.includes(product.id)
+                              ? "block"
+                              : "none",
+                          }}
+                        >
+                          SALE -{parseInt(product.discountPercentage)}%
+                        </Typography>
+                      </div>
                     </CardMedia>
                     <CardContent className="bestseler-cardcontent">
                       <Typography
@@ -137,14 +178,43 @@ function Favourites() {
                       >
                         {product.title}
                       </Typography>
-                      <Typography
-                        className="price"
-                        gutterBottom
-                        variant="h6"
-                        component="div"
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
+                        }}
                       >
-                        ${product.price}
-                      </Typography>
+                        <Typography
+                          className="price"
+                          gutterBottom
+                          variant="h6"
+                          component="div"
+                        >
+                          $
+                          {SallesIDS.includes(product.id)
+                            ? (
+                                product.price -
+                                (product.price * product.discountPercentage) /
+                                  100
+                              ).toFixed(2)
+                            : product.price}
+                        </Typography>
+                        <Typography
+                          className="old-price"
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          sx={{
+                            textAlign: "center",
+                            visibility: SallesIDS.includes(product.id)
+                              ? "visible"
+                              : "hidden",
+                          }}
+                        >
+                          ${product.price}
+                        </Typography>
+                      </div>
                       <CardActions
                         sx={{
                           padding: "0px",

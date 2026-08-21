@@ -27,12 +27,7 @@ function FavouriteLoading() {
 
                   <Skeleton width="35%" height={30} />
 
-                  <Box
-                    mt={2}
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
+                  <Box mt={2} display="flex">
                     <Skeleton width={90} height={30} />
 
                     <Box display="flex" gap={1}>

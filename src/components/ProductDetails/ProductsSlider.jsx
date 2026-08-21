@@ -28,7 +28,13 @@ import { useSnackbar } from "notistack";
 
 export default function ProductsSlider({ product }) {
   const [products, setproducts] = useState([]);
-  const { reducerproducts, dispatch } = UseStore();
+  const {
+    reducerproducts,
+    dispatch,
+    NewarrivalsIDS,
+    BestsellersIDS,
+    SallesIDS,
+  } = UseStore();
   const { enqueueSnackbar } = useSnackbar();
 
   function togglecart(id, weight, price, stock) {
@@ -120,9 +126,45 @@ export default function ProductsSlider({ product }) {
                       flexDirection: "column",
                       alignItems: "center",
                       justifyContent: "center",
+                      position: "relative",
                     }}
                   >
                     <img src={product.thumbnail} />
+                    <div className="patches">
+                      <Typography
+                        variant="caption"
+                        className="newarrivals-patch"
+                        sx={{
+                          display: NewarrivalsIDS.includes(product.id)
+                            ? "block"
+                            : "none",
+                        }}
+                      >
+                        NEW
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        className="bestseller-patch"
+                        sx={{
+                          display: BestsellersIDS.includes(product.id)
+                            ? "block"
+                            : "none",
+                        }}
+                      >
+                        BEST SELLER
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        className="sales-patch"
+                        sx={{
+                          display: SallesIDS.includes(product.id)
+                            ? "block"
+                            : "none",
+                        }}
+                      >
+                        SALE -{parseInt(product.discountPercentage)}%
+                      </Typography>
+                    </div>
                   </div>
                   <CardContent>
                     <Typography
@@ -158,16 +200,42 @@ export default function ProductsSlider({ product }) {
                       justifyContent: "space-between",
                     }}
                   >
-                    {" "}
-                    <Typography
-                      className="price"
-                      gutterBottom
-                      variant="h6"
-                      component="div"
-                      sx={{ margin: "0px" }}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
                     >
-                      ${product.price}
-                    </Typography>
+                      <Typography
+                        className="price"
+                        gutterBottom
+                        variant="h6"
+                        component="div"
+                      >
+                        $
+                        {SallesIDS.includes(product.id)
+                          ? (
+                              product.price -
+                              (product.price * product.discountPercentage) / 100
+                            ).toFixed(2)
+                          : product.price}
+                      </Typography>
+                      <Typography
+                        className="old-price"
+                        gutterBottom
+                        variant="subtitle1"
+                        component="div"
+                        sx={{
+                          textAlign: "center",
+                          visibility: SallesIDS.includes(product.id)
+                            ? "visible"
+                            : "hidden",
+                        }}
+                      >
+                        ${product.price}
+                      </Typography>
+                    </div>
                     <div className="icons">
                       <IconButton
                         className="iconbutton"

@@ -49,11 +49,6 @@ function ProductInfo({ product }) {
       },
     );
   }
-  // ===
-  const oldPrice = (
-    product.price /
-    (1 - product.discountPercentage / 100)
-  ).toFixed(2);
 
   return (
     <Box>
@@ -91,7 +86,13 @@ function ProductInfo({ product }) {
 
       <Stack direction="row" spacing={2} sx={{ mb: 1, alignItems: "center" }}>
         <Typography variant="h4" color="primary" fontWeight="bold">
-          ${product.price}
+          $
+          {SallesIDS.includes(product.id)
+            ? (
+                product.price -
+                (product.price * product.discountPercentage) / 100
+              ).toFixed(2)
+            : product.price}
         </Typography>
 
         <Typography
@@ -102,7 +103,7 @@ function ProductInfo({ product }) {
               : "hidden",
           }}
         >
-          ${oldPrice}
+          ${product.price}
         </Typography>
 
         <Chip

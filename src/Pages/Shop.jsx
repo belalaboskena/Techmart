@@ -4,7 +4,6 @@ import { Link, useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
-import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -22,7 +21,13 @@ import { useSnackbar } from "notistack";
 import FavouriteLoading from "../components/favourite/FavouriteLoading";
 
 function Shop() {
-  const { reducerproducts, dispatch } = UseStore();
+  const {
+    reducerproducts,
+    dispatch,
+    NewarrivalsIDS,
+    BestsellersIDS,
+    SallesIDS,
+  } = UseStore();
   const [loading, setLoading] = useState(true);
   const { category } = useParams();
   const [products, setproducts] = useState([]);
@@ -55,6 +60,21 @@ function Shop() {
       title: "Sunglasses",
       description:
         "Protect your eyes with premium sunglasses designed for comfort and style.",
+    },
+    "best-sellers": {
+      title: "Best Sellers",
+      description:
+        "Our most loved products, rated for excellence and performance by the TechMart community.",
+    },
+    "new-arrivels": {
+      title: "New Arrivels",
+      description:
+        "Stay ahead of the curve with our newest additions to the TechMart collection.",
+    },
+    sales: {
+      title: "Exclusive Clearance Sale",
+      description:
+        "Limited time offers on premium tech accessories. Up to 60% Off!",
     },
   };
   const info = categoriesInfo[category] || {
@@ -137,6 +157,57 @@ function Shop() {
         .finally(() => {
           setLoading(false);
         });
+    } else if (category === "best-sellers") {
+      Promise.all(
+        BestsellersIDS.map((id) =>
+          axios.get(`https://dummyjson.com/products/${id}`),
+        ),
+      )
+        .then((responses) => {
+          const products = responses.map((response) => response.data);
+
+          setproducts(products);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else if (category === "new-arrivels") {
+      Promise.all(
+        NewarrivalsIDS.map((id) =>
+          axios.get(`https://dummyjson.com/products/${id}`),
+        ),
+      )
+        .then((responses) => {
+          const products = responses.map((response) => response.data);
+
+          setproducts(products);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else if (category === "sales") {
+      Promise.all(
+        SallesIDS.map((id) =>
+          axios.get(`https://dummyjson.com/products/${id}`),
+        ),
+      )
+        .then((responses) => {
+          const products = responses.map((response) => response.data);
+
+          setproducts(products);
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     } else {
       axios
         .get(`https://dummyjson.com/products/category/${category}`)
@@ -150,7 +221,8 @@ function Shop() {
           setLoading(false);
         });
     }
-  }, [category]);
+  }, [category, NewarrivalsIDS, BestsellersIDS, SallesIDS]);
+
   if (loading) {
     return <FavouriteLoading />;
   }
@@ -186,6 +258,41 @@ function Shop() {
                       title={product.title}
                     >
                       <img src={product.thumbnail}></img>
+                      <div className="patches">
+                        <Typography
+                          variant="caption"
+                          className="newarrivals-patch"
+                          sx={{
+                            display: NewarrivalsIDS.includes(product.id)
+                              ? "block"
+                              : "none",
+                          }}
+                        >
+                          NEW
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          className="bestseller-patch"
+                          sx={{
+                            display: BestsellersIDS.includes(product.id)
+                              ? "block"
+                              : "none",
+                          }}
+                        >
+                          BEST SELLER
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          className="sales-patch"
+                          sx={{
+                            display: SallesIDS.includes(product.id)
+                              ? "block"
+                              : "none",
+                          }}
+                        >
+                          SALE -{parseInt(product.discountPercentage)}%
+                        </Typography>
+                      </div>
                     </CardMedia>
                     <CardContent className="bestseler-cardcontent">
                       <Typography
@@ -201,14 +308,43 @@ function Shop() {
                       >
                         {product.title}
                       </Typography>
-                      <Typography
-                        className="price"
-                        gutterBottom
-                        variant="h6"
-                        component="div"
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
+                        }}
                       >
-                        ${product.price}
-                      </Typography>
+                        <Typography
+                          className="price"
+                          gutterBottom
+                          variant="h6"
+                          component="div"
+                        >
+                          $
+                          {SallesIDS.includes(product.id)
+                            ? (
+                                product.price -
+                                (product.price * product.discountPercentage) /
+                                  100
+                              ).toFixed(2)
+                            : product.price}
+                        </Typography>
+                        <Typography
+                          className="old-price"
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          sx={{
+                            textAlign: "center",
+                            visibility: SallesIDS.includes(product.id)
+                              ? "visible"
+                              : "hidden",
+                          }}
+                        >
+                          ${product.price}
+                        </Typography>
+                      </div>
                       <CardActions
                         sx={{
                           padding: "0px",

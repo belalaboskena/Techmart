@@ -62,19 +62,25 @@ function Salles() {
         >
           Limited time offers on premium tech accessories. Up to 60% Off!
         </Typography>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+          }}
+        >
           <Grid container spacing={2}>
-            {products.map((product) => (
+            {products.slice(0, 3).map((product) => (
               <Grid key={product.id} size={{ xs: 12, sm: 6, lg: 4 }}>
                 <Card className="salles-card" sx={{ width: "100%" }}>
                   <CardMedia className="salles-cardMedia" title={product.title}>
                     <img src={product.thumbnail}></img>
-                    <Typography
-                      variant="caption"
-                      className="discountPercentage"
-                    >
-                      SALE -{parseInt(product.discountPercentage)}%
-                    </Typography>
+                    <div className="patches">
+                      <Typography
+                        variant="caption"
+                        className="sales-patch"
+                      >
+                        SALE -{parseInt(product.discountPercentage)}%
+                      </Typography>
+                    </div>
                   </CardMedia>
                   <CardContent className="salles-cardcontent">
                     <Typography
@@ -136,7 +142,16 @@ function Salles() {
                 </Card>
               </Grid>
             ))}
-          </Grid>
+            <Link
+              to="/shop/sales"
+              style={{
+                display: SallesIDS.length > 3 ? "block" : "none",
+                margin: "auto",
+              }}
+            >
+              <Button variant="contained">View More</Button>
+            </Link>
+          </Grid>{" "}
         </Box>
       </Container>
     </Container>

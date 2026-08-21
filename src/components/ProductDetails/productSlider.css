@@ -25,7 +25,7 @@
   background-color: var(--primary);
 }
 
-.swiper-slide div img {
+.swiper-slide .slider-card div img {
   display: block;
   width: 150px;
   height: auto;

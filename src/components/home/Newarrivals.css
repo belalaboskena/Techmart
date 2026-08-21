@@ -12,13 +12,4 @@
   position: relative;
 }
 
-.newarrivals-cardMedia .new-patch {
-  position: absolute;
-  padding: 3px 10px;
-  background-color: var(--primary);
-  color: var(--background);
-  border-radius: 16px; 
-  left: 10px;
-  top: 10px;
-  text-align: center;
-}
+

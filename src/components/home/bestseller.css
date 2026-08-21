@@ -13,6 +13,7 @@
   overflow: hidden;
   display: flex !important;
   justify-content: center;
+  position: relative;
 }
 .bestseler-cardcontent {
   padding: 16px !important;
@@ -23,6 +24,7 @@
 .iconbutton {
   margin: 0 !important;
 }
+
 /* responsive */
 @media (max-width: 900px) {
   .cardMedia {

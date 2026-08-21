@@ -45,7 +45,33 @@ body {
   margin: 0px;
   box-sizing: border-box;
 }
-.Categorysinput {
+.patches {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+}
+.sales-patch,
+.newarrivals-patch,
+.bestseller-patch {
+  display: block;
+  align-items: center;
+  width: 110px;
+  padding: 2px 0px;
+  padding-right: 10px;
+  color: var(--background);
+  text-align: center;
+  font-weight: bolder;
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+}
+.sales-patch {
+  background-color: var(--danger);
+}
+.newarrivals-patch {
+  background-color: var(--primary);
+}
+.bestseller-patch {
+  background-color: var(--secondary);
 }
 .Selectinput {
   background-color: #fff;
