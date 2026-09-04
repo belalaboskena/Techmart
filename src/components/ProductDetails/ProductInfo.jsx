@@ -13,42 +13,13 @@ import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined
 import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
 import KeyboardReturnOutlinedIcon from "@mui/icons-material/KeyboardReturnOutlined";
 import { UseStore } from "../../contexts/storecontext";
-import { useSnackbar } from "notistack";
 import { useParams } from "react-router-dom";
 
 function ProductInfo({ product }) {
   // ===
-  const { reducerproducts, dispatch, SallesIDS } = UseStore();
+  const { reducerproducts, SallesIDS, togglecart, toggleFavourite } =
+    UseStore();
   const { id } = useParams();
-
-  const { enqueueSnackbar } = useSnackbar();
-
-  function togglecart(id, weight, price, stock) {
-    dispatch({
-      type: "toggle-cart",
-      payload: { id: id, weight: weight, price: price, stock: stock },
-    });
-    const isInCart = reducerproducts.cart.some((item) => item.id === id);
-
-    enqueueSnackbar(
-      isInCart ? "Product removed from cart" : "Product added to cart",
-      {
-        variant: isInCart ? "error" : "success",
-      },
-    );
-  }
-  function toggleFavourite(id) {
-    dispatch({ type: "toggle-favourite", payload: { id: id } });
-
-    enqueueSnackbar(
-      reducerproducts.favourites.includes(id)
-        ? "Product removed from wish list"
-        : "Product added to wish list",
-      {
-        variant: reducerproducts.favourites.includes(id) ? "error" : "success",
-      },
-    );
-  }
 
   return (
     <Box>
@@ -182,8 +153,10 @@ function ProductInfo({ product }) {
           height: 50,
           gap: "10px",
         }}
-        onClick={() => {
+        onClick={(e) => {
           toggleFavourite(product.id);
+          e.preventDefault();
+          e.stopPropagation();
         }}
       >
         {reducerproducts.favourites.includes(product.id) ? (

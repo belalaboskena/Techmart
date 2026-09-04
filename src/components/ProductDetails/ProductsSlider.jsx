@@ -24,45 +24,17 @@ import "./productSlider.css";
 import { Navigation, FreeMode, Pagination, Mousewheel } from "swiper/modules";
 // ========
 import { UseStore } from "../../contexts/storecontext";
-import { useSnackbar } from "notistack";
 
 export default function ProductsSlider({ product }) {
   const [products, setproducts] = useState([]);
   const {
     reducerproducts,
-    dispatch,
     NewarrivalsIDS,
     BestsellersIDS,
     SallesIDS,
+    togglecart,
+    toggleFavourite,
   } = UseStore();
-  const { enqueueSnackbar } = useSnackbar();
-
-  function togglecart(id, weight, price, stock) {
-    dispatch({
-      type: "toggle-cart",
-      payload: { id: id, weight: weight, price: price, stock: stock },
-    });
-    const isInCart = reducerproducts.cart.some((item) => item.id === id);
-
-    enqueueSnackbar(
-      isInCart ? "Product removed from cart" : "Product added to cart",
-      {
-        variant: isInCart ? "error" : "success",
-      },
-    );
-  }
-  function toggleFavourite(id) {
-    dispatch({ type: "toggle-favourite", payload: { id: id } });
-
-    enqueueSnackbar(
-      reducerproducts.favourites.includes(id)
-        ? "Product removed from wish list"
-        : "Product added to wish list",
-      {
-        variant: reducerproducts.favourites.includes(id) ? "error" : "success",
-      },
-    );
-  }
 
   useEffect(() => {
     axios
@@ -237,6 +209,24 @@ export default function ProductsSlider({ product }) {
                       </Typography>
                     </div>
                     <div className="icons">
+                      {" "}
+                      <IconButton
+                        className="iconbutton"
+                        size="small"
+                        aria-label="show 17 new notifications"
+                        color="inherit"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleFavourite(product.id);
+                        }}
+                      >
+                        {reducerproducts.favourites.includes(product.id) ? (
+                          <FavoriteIcon color="error" />
+                        ) : (
+                          <FavoriteBorderOutlinedIcon />
+                        )}
+                      </IconButton>
                       <IconButton
                         className="iconbutton"
                         size="small"
@@ -259,23 +249,6 @@ export default function ProductsSlider({ product }) {
                           <ShoppingCartIcon color="primary" />
                         ) : (
                           <ShoppingCartOutlinedIcon />
-                        )}
-                      </IconButton>
-                      <IconButton
-                        className="iconbutton"
-                        size="small"
-                        aria-label="show 17 new notifications"
-                        color="inherit"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          toggleFavourite(product.id);
-                        }}
-                      >
-                        {reducerproducts.favourites.includes(product.id) ? (
-                          <FavoriteIcon color="error" />
-                        ) : (
-                          <FavoriteBorderOutlinedIcon />
                         )}
                       </IconButton>
                     </div>

@@ -74,10 +74,7 @@ function Salles() {
                   <CardMedia className="salles-cardMedia" title={product.title}>
                     <img src={product.thumbnail}></img>
                     <div className="patches">
-                      <Typography
-                        variant="caption"
-                        className="sales-patch"
-                      >
+                      <Typography variant="caption" className="sales-patch">
                         SALE -{parseInt(product.discountPercentage)}%
                       </Typography>
                     </div>

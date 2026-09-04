@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import ScrollToHero from "../components/home/ScrollToHero";
 function Home() {
+
   const location = useLocation();
 
   useEffect(() => {

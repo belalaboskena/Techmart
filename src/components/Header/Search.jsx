@@ -1,16 +1,11 @@
-import {
-  Box,
-  Typography,
-  InputBase,
-  Paper,
-  CircularProgress,
-} from "@mui/material";
+import { Box, Typography, InputBase, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import axios from "axios";
+import { UseStore } from "../../contexts/storecontext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -40,6 +35,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 function SearchBar() {
+  const { SallesIDS } = UseStore();
   const [search, setSearch] = useState("");
   const [allProducts, setAllProducts] = useState([]);
   const filteredProducts = useMemo(() => {
@@ -154,7 +150,17 @@ function SearchBar() {
                       {product.title}
                     </Typography>
 
-                    <Typography color="primary">${product.price}</Typography>
+                    {SallesIDS.includes(product.id) ? (
+                      <Typography color="error">
+                        $
+                        {(
+                          product.price -
+                          (product.price * product.discountPercentage) / 100
+                        ).toFixed(2)}
+                      </Typography>
+                    ) : (
+                      <Typography color="primary">$ {product.price}</Typography>
+                    )}
                   </Box>
                 </Box>
               ))

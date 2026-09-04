@@ -5,20 +5,40 @@ import {
   Typography,
   IconButton,
   Badge,
-  Avatar,
   Container,
 } from "@mui/material";
 
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Avatar from "@mui/material/Avatar";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import Tooltip from "@mui/material/Tooltip";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { Link } from "react-router-dom";
 import { UseStore } from "../../contexts/storecontext";
 import { useLocation } from "react-router-dom";
 import SearchBar from "./Search";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function HomeHeader() {
   const { reducerproducts } = UseStore();
   const location = useLocation();
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  // menu state
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleUserMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    navigate("/");
+  };
 
   return (
     <AppBar
@@ -35,6 +55,7 @@ function HomeHeader() {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-between",
+            padding: "0px",
           }}
         >
           {/* Logo */}
@@ -86,36 +107,124 @@ function HomeHeader() {
               order: { xs: 2, md: 3 },
             }}
           >
-            <IconButton component={Link} to="/favourites">
-              <Badge
-                badgeContent={reducerproducts.favourites.length}
-                color="error"
-              >
-                <FavoriteBorderOutlinedIcon
-                  color={location.pathname === "/favourites" ? "primary" : ""}
-                />
-              </Badge>
-            </IconButton>
-
-            <IconButton component={Link} to="/cart">
-              <Badge badgeContent={reducerproducts.cart.length} color="error">
-                <ShoppingCartOutlinedIcon
-                  color={location.pathname === "/cart" ? "primary" : ""}
-                />
-              </Badge>
-            </IconButton>
-
-            <IconButton>
-              <Avatar
+            {" "}
+            <Tooltip title="Wish List" arrow>
+              <IconButton
+                component={Link}
+                to="/favourites"
                 sx={{
-                  width: 36,
-                  height: 36,
-                  bgcolor: "primary.main",
+                  width: 42,
+                  height: 42,
+                  border: "1px solid",
+                  borderColor: "divider",
+                  borderRadius: "50%",
                 }}
               >
-                B
-              </Avatar>
-            </IconButton>
+                <Badge
+                  badgeContent={reducerproducts.favourites.length}
+                  color="error"
+                >
+                  <FavoriteBorderOutlinedIcon
+                    color={location.pathname === "/favourites" ? "primary" : ""}
+                  />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Cart" arrow>
+              <IconButton
+                component={Link}
+                to="/cart"
+                sx={{
+                  width: 42,
+                  height: 42,
+                  border: "1px solid",
+                  borderColor: "divider",
+                  borderRadius: "50%",
+                }}
+              >
+                <Badge badgeContent={reducerproducts.cart.length} color="error">
+                  <ShoppingCartOutlinedIcon
+                    color={location.pathname === "/cart" ? "primary" : ""}
+                  />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+            {user ? (
+              <>
+                <Tooltip title="Account" arrow>
+                  <IconButton
+                    onClick={handleUserMenu}
+                    aria-controls={open ? "user-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                    sx={{
+                      width: 42,
+                      height: 42,
+                      border: "1px solid",
+                      borderColor: "divider",
+                      borderRadius: "50%",
+                      transition: "all 0.2s ease",
+                    }}
+                  >
+                    <Avatar
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        fontSize: 14,
+                        bgcolor: "#1976d2",
+                      }}
+                    >
+                      {user.email?.[0]?.toUpperCase()}
+                    </Avatar>
+                  </IconButton>
+                </Tooltip>
+
+                <Menu
+                  id="user-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                >
+                  <MenuItem
+                    onClick={() => {
+                      handleClose();
+                      logout();
+                    }}
+                  >
+                    <LogoutOutlinedIcon
+                      fontSize="small"
+                      sx={{ mr: 1 }}
+                      color="error"
+                    />
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <Tooltip title="Login" arrow>
+                <IconButton
+                  component={Link}
+                  to="/login"
+                  sx={{
+                    width: 42,
+                    height: 42,
+                    border: "1px solid",
+                    borderColor: "divider",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <PersonOutlineOutlinedIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            )}
           </Box>
         </Toolbar>
       </Container>

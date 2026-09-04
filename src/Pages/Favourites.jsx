@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
-import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -20,67 +19,64 @@ import EmptyFavourite from "../components/favourite/Emptyfavourite";
 import FavouriteLoading from "../components/favourite/FavouriteLoading.jsx";
 import { UseStore } from "../contexts/storecontext.jsx";
 import MainHeader from "../components/Header/MainHeader.jsx";
-import { useSnackbar } from "notistack";
 
 function Favourites() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const {
     reducerproducts,
-    dispatch,
     NewarrivalsIDS,
     BestsellersIDS,
     SallesIDS,
+    togglecart,
+    toggleFavourite,
   } = UseStore();
-  const { enqueueSnackbar } = useSnackbar();
 
-  function togglecart(id, weight, price, stock) {
-    dispatch({
-      type: "toggle-cart",
-      payload: { id: id, weight: weight, price: price, stock: stock },
-    });
-    const isInCart = reducerproducts.cart.some((item) => item.id === id);
-
-    enqueueSnackbar(
-      isInCart ? "Product removed from cart" : "Product added to cart",
-      {
-        variant: isInCart ? "error" : "success",
-      },
-    );
-  }
-  function toggleFavourite(id) {
-    dispatch({ type: "toggle-favourite", payload: { id: id } });
-
-    enqueueSnackbar(
-      reducerproducts.favourites.includes(id)
-        ? "Product removed from wish list"
-        : "Product added to wish list",
-      {
-        variant: reducerproducts.favourites.includes(id) ? "error" : "success",
-      },
-    );
-  }
   useEffect(() => {
     window.scrollTo({
       top: 0,
     });
-    const favouriteIds =
-      JSON.parse(localStorage.getItem("favouriteproducts")) || [];
 
-    Promise.all(
-      favouriteIds.map((id) =>
-        axios.get(`https://dummyjson.com/products/${id}`),
-      ),
-    )
-      .then((responses) => {
-        setProducts(responses.map((response) => response.data));
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
+    let ignore = false;
+
+    const fetchFavouriteProducts = async () => {
+      setLoading(true);
+
+      const favouriteIds = reducerproducts.favourites || [];
+
+      if (favouriteIds.length === 0) {
+        setProducts([]);
         setLoading(false);
-      });
+        return;
+      }
+
+      try {
+        const responses = await Promise.all(
+          favouriteIds.map((id) =>
+            axios.get(`https://dummyjson.com/products/${id}`),
+          ),
+        );
+
+        if (!ignore) {
+          setProducts(responses.map((response) => response.data));
+        }
+      } catch (error) {
+        if (!ignore) {
+          console.error("Error fetching favourite products:", error);
+          setProducts([]);
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchFavouriteProducts();
+
+    return () => {
+      ignore = true;
+    };
   }, [reducerproducts.favourites]);
 
   if (loading) {
@@ -234,6 +230,23 @@ function Favourites() {
                             aria-label="show 17 new notifications"
                             color="inherit"
                             onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              toggleFavourite(product.id);
+                            }}
+                          >
+                            {reducerproducts.favourites.includes(product.id) ? (
+                              <FavoriteIcon color="error" />
+                            ) : (
+                              <FavoriteBorderOutlinedIcon />
+                            )}
+                          </IconButton>
+                          <IconButton
+                            className="iconbutton"
+                            size="small"
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                            onClick={(e) => {
                               togglecart(
                                 product.id,
                                 product.weight,
@@ -250,23 +263,6 @@ function Favourites() {
                               <ShoppingCartIcon color="primary" />
                             ) : (
                               <ShoppingCartOutlinedIcon />
-                            )}
-                          </IconButton>
-                          <IconButton
-                            className="iconbutton"
-                            size="small"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              toggleFavourite(product.id);
-                            }}
-                          >
-                            {reducerproducts.favourites.includes(product.id) ? (
-                              <FavoriteIcon color="error" />
-                            ) : (
-                              <FavoriteBorderOutlinedIcon />
                             )}
                           </IconButton>
                         </div>

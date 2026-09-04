@@ -15,69 +15,65 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { UseStore } from "../../contexts/storecontext";
-import { useSnackbar } from "notistack";
 import CartLoading from "./CartLoading";
 
 function CartItems() {
-  const { reducerproducts, dispatch } = UseStore();
+  const {
+    reducerproducts,
+    togglecart,
+    toggleFavourite,
+    increaseQuantity,
+    decreaseQuantity,
+  } = UseStore();
   const [loading, setLoading] = useState(true);
-  const { enqueueSnackbar } = useSnackbar();
 
   // =======
   const [products, setProducts] = useState([]);
 
+  const cartIds = reducerproducts.cart.map((item) => item.id);
+
   useEffect(() => {
-    const cartIds = JSON.parse(localStorage.getItem("cartproducts")) || [];
+    let ignore = false;
 
-    Promise.all(
-      cartIds.map((item) =>
-        axios.get(`https://dummyjson.com/products/${item.id}`),
-      ),
-    )
-      .then((responses) => {
-        setProducts(responses.map((response) => response.data));
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
+    const fetchCartProducts = async () => {
+      setLoading(true);
+
+      const cartItems = reducerproducts.cart || [];
+
+      if (cartItems.length === 0) {
+        setProducts([]);
         setLoading(false);
-      });
-    // =====
-  }, [reducerproducts.cart]);
+        return;
+      }
 
-  function togglecart(id, weight, price, stock) {
-    dispatch({
-      type: "toggle-cart",
-      payload: { id: id, weight: weight, price: price, stock: stock },
-    });
-    const isInCart = reducerproducts.cart.some((item) => item.id === id);
+      try {
+        const responses = await Promise.all(
+          cartItems.map((item) =>
+            axios.get(`https://dummyjson.com/products/${item.id}`),
+          ),
+        );
 
-    enqueueSnackbar(
-      isInCart ? "Product removed from cart" : "Product added to cart",
-      {
-        variant: isInCart ? "error" : "success",
-      },
-    );
-  }
-  function toggleFavourite(id) {
-    dispatch({ type: "toggle-favourite", payload: { id: id } });
+        if (!ignore) {
+          setProducts(responses.map((response) => response.data));
+        }
+      } catch (error) {
+        if (!ignore) {
+          console.error("Error fetching cart products:", error);
+          setProducts([]);
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    };
 
-    enqueueSnackbar(
-      reducerproducts.favourites.includes(id)
-        ? "Product removed from wish list"
-        : "Product added to wish list",
-      {
-        variant: reducerproducts.favourites.includes(id) ? "error" : "success",
-      },
-    );
-  }
-  function increase(id) {
-    dispatch({ type: "INCREASE_QUANTITY", payload: { id: id } });
-  }
-  function decrease(id) {
-    dispatch({ type: "DECREASE_QUANTITY", payload: { id: id } });
-  }
+    fetchCartProducts();
+
+    return () => {
+      ignore = true;
+    };
+  }, [cartIds.join(",")]);
   if (loading) {
     return <CartLoading />;
   }
@@ -291,7 +287,7 @@ function CartItems() {
                 <IconButton disabled={cartItem?.quantity === 1}>
                   <RemoveIcon
                     onClick={(e) => {
-                      decrease(product.id);
+                      decreaseQuantity(product.id);
                       e.preventDefault();
                       e.stopPropagation();
                     }}
@@ -314,7 +310,7 @@ function CartItems() {
                 <IconButton disabled={cartItem?.quantity === cartItem?.stock}>
                   <AddIcon
                     onClick={(e) => {
-                      increase(product.id);
+                      increaseQuantity(product.id);
                       e.preventDefault();
                       e.stopPropagation();
                     }}

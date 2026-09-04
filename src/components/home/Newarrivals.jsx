@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -16,17 +16,15 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import { UseStore } from "../../contexts/storecontext.jsx";
-import { useSnackbar } from "notistack";
 import HomeLoading from "./HomeLoading.jsx";
 
 import "./Newarrivals.css";
 
 function Newarrivals() {
-  const { reducerproducts, dispatch, NewarrivalsIDS } = UseStore();
+  const { reducerproducts, NewarrivalsIDS, togglecart, toggleFavourite } =
+    UseStore();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     async function getProducts() {
@@ -48,32 +46,6 @@ function Newarrivals() {
     getProducts();
   }, []);
 
-  function togglecart(id, weight, price, stock) {
-    dispatch({
-      type: "toggle-cart",
-      payload: { id: id, weight: weight, price: price, stock: stock },
-    });
-    const isInCart = reducerproducts.cart.some((item) => item.id === id);
-
-    enqueueSnackbar(
-      isInCart ? "Product removed from cart" : "Product added to cart",
-      {
-        variant: isInCart ? "error" : "success",
-      },
-    );
-  }
-  function toggleFavourite(id) {
-    dispatch({ type: "toggle-favourite", payload: { id: id } });
-
-    enqueueSnackbar(
-      reducerproducts.favourites.includes(id)
-        ? "Product removed from wish list"
-        : "Product added to wish list",
-      {
-        variant: reducerproducts.favourites.includes(id) ? "error" : "success",
-      },
-    );
-  }
   if (loading) {
     return <HomeLoading />;
   }
@@ -110,7 +82,10 @@ function Newarrivals() {
                     >
                       <img src={product.thumbnail}></img>
                       <div className="patches">
-                        <Typography variant="caption" className="newarrivals-patch">
+                        <Typography
+                          variant="caption"
+                          className="newarrivals-patch"
+                        >
                           NEW
                         </Typography>
                       </div>
@@ -155,6 +130,23 @@ function Newarrivals() {
                             aria-label="show 17 new notifications"
                             color="inherit"
                             onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              toggleFavourite(product.id);
+                            }}
+                          >
+                            {reducerproducts.favourites.includes(product.id) ? (
+                              <FavoriteIcon color="error" />
+                            ) : (
+                              <FavoriteBorderOutlinedIcon />
+                            )}
+                          </IconButton>
+                          <IconButton
+                            className="iconbutton"
+                            size="small"
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                            onClick={(e) => {
                               togglecart(
                                 product.id,
                                 product.weight,
@@ -171,23 +163,6 @@ function Newarrivals() {
                               <ShoppingCartIcon color="primary" />
                             ) : (
                               <ShoppingCartOutlinedIcon />
-                            )}
-                          </IconButton>
-                          <IconButton
-                            className="iconbutton"
-                            size="small"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              toggleFavourite(product.id);
-                            }}
-                          >
-                            {reducerproducts.favourites.includes(product.id) ? (
-                              <FavoriteIcon color="error" />
-                            ) : (
-                              <FavoriteBorderOutlinedIcon />
                             )}
                           </IconButton>
                         </div>

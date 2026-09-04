@@ -1,6 +1,5 @@
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 function EmptyCart() {
