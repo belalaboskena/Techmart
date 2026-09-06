@@ -39,9 +39,19 @@ function AuthProvider({ children }) {
       console.log("Logout error:", error.message);
       return;
     }
-
   };
+  const loginWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: "https://belalaboskena.github.io/Techmart/",
+      },
+    });
 
+    if (error) {
+      console.error("Google login error:", error.message);
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -49,6 +59,7 @@ function AuthProvider({ children }) {
         session,
         loading,
         logout,
+        loginWithGoogle,
       }}
     >
       {children}

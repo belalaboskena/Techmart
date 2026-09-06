@@ -18,23 +18,23 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { Link } from "react-router-dom";
 import { UseStore } from "../../contexts/storecontext";
-import { useLocation } from "react-router-dom";
 import SearchBar from "./Search";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 
 function HomeHeader() {
   const { reducerproducts } = UseStore();
-  const location = useLocation();
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
   // menu state
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleUserMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
     navigate("/");
@@ -105,13 +105,14 @@ function HomeHeader() {
               gap: 1,
               flex: { xs: 1, md: 0 },
               order: { xs: 2, md: 3 },
+              margin: "10px 0px",
             }}
           >
-            {" "}
             <Tooltip title="Wish List" arrow>
               <IconButton
-                component={Link}
-                to="/favourites"
+                onClick={() => {
+                  navigate("/favourites");
+                }}
                 sx={{
                   width: 42,
                   height: 42,
@@ -132,8 +133,9 @@ function HomeHeader() {
             </Tooltip>
             <Tooltip title="Cart" arrow>
               <IconButton
-                component={Link}
-                to="/cart"
+                onClick={() => {
+                  navigate("/cart");
+                }}
                 sx={{
                   width: 42,
                   height: 42,
@@ -174,7 +176,7 @@ function HomeHeader() {
                         bgcolor: "#1976d2",
                       }}
                     >
-                      {user.email?.[0]?.toUpperCase()}
+                      {user.user_metadata.full_name?.[0]?.toUpperCase()}
                     </Avatar>
                   </IconButton>
                 </Tooltip>

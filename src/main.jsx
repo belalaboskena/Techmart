@@ -11,7 +11,6 @@ createRoot(document.getElementById("root")).render(
   <HashRouter>
     <StrictMode>
       <SnackbarProvider maxSnack={3} TransitionComponent={Grow}>
-        {" "}
         <AuthProvider>
           <Storeprovider>
             <App />

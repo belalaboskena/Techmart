@@ -37,6 +37,7 @@ const Storeprovider = ({ children }) => {
       severity,
     });
   };
+
   //
 
   useEffect(() => {
@@ -295,7 +296,14 @@ const Storeprovider = ({ children }) => {
 
     showSnackbar("Product added to wishlist", "success");
   };
+  const requireLogin = (message) => {
+    if (!user) {
+      showSnackbar(message, "warning");
+      return false;
+    }
 
+    return true;
+  };
   return (
     <storecontext.Provider
       value={{
@@ -308,6 +316,7 @@ const Storeprovider = ({ children }) => {
         toggleFavourite,
         increaseQuantity,
         decreaseQuantity,
+        requireLogin,
       }}
     >
       {children}

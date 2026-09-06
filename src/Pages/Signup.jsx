@@ -21,10 +21,11 @@ import AppleIcon from "@mui/icons-material/Apple";
 
 import { supabase } from "../supabase";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function SignUp() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -70,10 +71,18 @@ function SignUp() {
       terms: false,
     });
 
-    console.log("Account created:", data);
+    const from = location.state?.from?.pathname || "/";
+
+    navigate(from, { replace: true });
   };
   return (
-    <Container maxWidth="false" sx={{ bgcolor: "#f5f7fb" }}>
+    <Container
+      maxWidth="false"
+      sx={{
+        bgcolor: "#f5f7fb",
+        p: "0px",
+      }}
+    >
       <Container
         maxWidth="lg"
         sx={{
@@ -81,7 +90,9 @@ function SignUp() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          p: 2,
+          p: {
+            xs: 0,
+          },
         }}
       >
         <Paper

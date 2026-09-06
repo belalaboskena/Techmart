@@ -8,14 +8,29 @@ import ProductDetails from "./Pages/ProductDetails";
 import Shop from "./Pages/Shop";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
+import ProtectedRoute from "./layouts/ProtectedRoute";
 export default function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/shop/:category" element={<Shop />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/favourites" element={<Favourites />} />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Favourites"
+          element={
+            <ProtectedRoute>
+              <Favourites />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/product/:id" element={<ProductDetails />} />
       </Route>
       <Route path="/login" element={<Login />} />

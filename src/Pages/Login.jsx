@@ -8,8 +8,8 @@ import {
   Divider,
   Paper,
   InputAdornment,
+  Container,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -17,11 +17,14 @@ import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 
 import { supabase } from "../supabase";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import {AuthContext} from "../contexts/AuthContext";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useState, useContext } from "react";
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { loginWithGoogle } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -48,7 +51,6 @@ function Login() {
       return;
     }
 
-
     // Clear form
     setFormData({
       email: "",
@@ -57,254 +59,242 @@ function Login() {
 
     // Go to Home
     navigate("/");
+    const from = location.state?.from?.pathname || "/";
+
+    navigate(from, { replace: true });
   };
   return (
-    <Paper
-      elevation={0}
+    <Container
+      maxWidth="false"
       sx={{
-        width: "100%",
-        height: "100vh",
-        minHeight: 650,
-        display: "flex",
-        overflow: "hidden",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+        bgcolor: "#f5f7fb",
+        p: "0px",
       }}
     >
-      {/* ================= IMAGE ================= */}
-      <Box
+      <Container
+        maxWidth="sm"
         sx={{
-          width: "70%",
-          display: {
-            xs: "none",
-            md: "block",
-          },
-          position: "relative",
-        }}
-      >
-        <img
-          src={`${import.meta.env.BASE_URL}img/login.jfif`}
-          style={{ width: "100%", height: "100%" }}
-        />
-        {/* Overlay */}
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            bgcolor: "rgba(0,0,0,0.25)",
-            display: "flex",
-            alignItems: "flex-end",
-            p: 5,
-          }}
-        >
-          <Box sx={{ color: "white" }}>
-            <Typography variant="h3" fontWeight={700} sx={{ mb: 1 }}>
-              Welcome to{" "}
-              <Box
-                component={Link}
-                to="/"
-                sx={{
-                  color: "primary.main",
-                  fontWeight: 700,
-                }}
-              >
-                TechMart
-              </Box>
-            </Typography>
-
-            <Typography>
-              Discover the latest technology and best deals.
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-
-      {/* ================= FORM ================= */}
-      <Box
-        sx={{
-          width: {
-            xs: "100%",
-            md: "50%",
-          },
+          minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           p: {
-            xs: 3,
-            sm: 5,
+            xs: 0,
           },
         }}
       >
-        <Box sx={{ width: "100%", maxWidth: 430 }}>
-          {/* Header */}
-          <Box sx={{ textAlign: "center", mb: 4 }}>
-            <Typography
-              variant="h4"
-              sx={{
-                fontWeight: 700,
-                mb: 1,
-              }}
-            >
-              Welcome back
-            </Typography>
-
-            <Typography color="text.secondary">
-              Please enter your details to sign in.
-            </Typography>
-          </Box>
-
-          {/* Email */}
-          <Typography fontWeight={600} sx={{ mb: 1 }}>
-            Email Address
-          </Typography>
-
-          <TextField
-            fullWidth
-            placeholder="you@example.com"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            sx={{ mb: 3 }}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <EmailOutlinedIcon color="action" />
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-
-          {/* Password */}
-          <Typography fontWeight={600} sx={{ mb: 1 }}>
-            Password
-          </Typography>
-
-          <TextField
-            fullWidth
-            type="password"
-            placeholder="••••••••"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            sx={{ mb: 2 }}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LockOutlinedIcon color="action" />
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-
-          {/* Remember + Forgot */}
+        <Paper
+          elevation={0}
+          sx={{
+            width: "100%",
+            borderRadius: 4,
+            border: "1px solid",
+            borderColor: "divider",
+            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.08)",
+            overflow: "hidden",
+          }}
+        >
+          {/* ================= FORM ================= */}
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "center",
               alignItems: "center",
-              mb: 3,
+              p: {
+                xs: 3,
+                sm: 3,
+              },
             }}
           >
-            <FormControlLabel
-              control={<Checkbox size="small" />}
-              label={<Typography variant="body2">Remember me</Typography>}
-            />
+            <Box sx={{ width: "100%", maxWidth: 430 }}>
+              {/* Header */}
+              <Box sx={{ textAlign: "center", mb: 4 }}>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    fontWeight: 700,
+                    mb: 1,
+                  }}
+                >
+                  Welcome to{" "}
+                  <Box
+                    component={Link}
+                    to="/"
+                    sx={{
+                      color: "primary.main",
+                      fontWeight: 700,
+                    }}
+                  >
+                    TechMart
+                  </Box>
+                </Typography>
 
-            <Button
-              sx={{
-                textTransform: "none",
-                p: 0,
-                minWidth: "auto",
-              }}
-            >
-              Forgot password?
-            </Button>
+                <Typography color="text.secondary">
+                  Please enter your details to sign in.
+                </Typography>
+              </Box>
+
+              {/* Email */}
+              <Typography fontWeight={600} sx={{ mb: 1 }}>
+                Email Address
+              </Typography>
+
+              <TextField
+                fullWidth
+                placeholder="you@example.com"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                sx={{ mb: 3 }}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailOutlinedIcon color="action" />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+              />
+
+              {/* Password */}
+              <Typography fontWeight={600} sx={{ mb: 1 }}>
+                Password
+              </Typography>
+
+              <TextField
+                fullWidth
+                type="password"
+                placeholder="••••••••"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                sx={{ mb: 2 }}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockOutlinedIcon color="action" />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+              />
+
+              {/* Remember + Forgot */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mb: 3,
+                }}
+              >
+                <FormControlLabel
+                  control={<Checkbox size="small" />}
+                  label={<Typography variant="body2">Remember me</Typography>}
+                />
+
+                <Button
+                  sx={{
+                    textTransform: "none",
+                    p: 0,
+                    minWidth: "auto",
+                  }}
+                >
+                  Forgot password?
+                </Button>
+              </Box>
+
+              {/* Sign In */}
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={handleLogin}
+                endIcon={<ArrowForwardIcon />}
+                sx={{
+                  height: 50,
+                  textTransform: "none",
+                  fontSize: "1rem",
+                  fontWeight: 600,
+                  mb: 4,
+                }}
+              >
+                Sign In
+              </Button>
+
+              {/* Divider */}
+              <Divider sx={{ mb: 3 }}>
+                <Typography variant="body2" color="text.secondary">
+                  Or continue with
+                </Typography>
+              </Divider>
+
+              {/* Google + Apple */}
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  mb: 4,
+                }}
+              >
+                <Button
+                  onClick={loginWithGoogle}
+                  fullWidth
+                  variant="outlined"
+                  startIcon={<GoogleIcon />}
+                  sx={{
+                    height: 46,
+                    textTransform: "none",
+                    color: "#333",
+                  }}
+                >
+                  Google
+                </Button>
+
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  startIcon={<AppleIcon />}
+                  sx={{
+                    height: 46,
+                    textTransform: "none",
+                    color: "#333",
+                  }}
+                >
+                  Apple
+                </Button>
+              </Box>
+
+              {/* Sign up */}
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ textAlign: "center" }}
+              >
+                Don't have an account?
+                <Button
+                  onClick={() =>
+                    navigate("/signup", {
+                      state: { from: location.state?.from },
+                    })
+                  }
+                  sx={{
+                    p: 0,
+                    minWidth: "auto",
+                    ml: 0.5,
+                    textTransform: "none",
+                    fontWeight: 600,
+                  }}
+                >
+                  Sign up
+                </Button>
+              </Typography>
+            </Box>
           </Box>
-
-          {/* Sign In */}
-          <Button
-            fullWidth
-            variant="contained"
-            onClick={handleLogin}
-            endIcon={<ArrowForwardIcon />}
-            sx={{
-              height: 50,
-              textTransform: "none",
-              fontSize: "1rem",
-              fontWeight: 600,
-              mb: 4,
-            }}
-          >
-            Sign In
-          </Button>
-
-          {/* Divider */}
-          <Divider sx={{ mb: 3 }}>
-            <Typography variant="body2" color="text.secondary">
-              Or continue with
-            </Typography>
-          </Divider>
-
-          {/* Google + Apple */}
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              mb: 4,
-            }}
-          >
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={<GoogleIcon />}
-              sx={{
-                height: 46,
-                textTransform: "none",
-                color: "#333",
-              }}
-            >
-              Google
-            </Button>
-
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={<AppleIcon />}
-              sx={{
-                height: 46,
-                textTransform: "none",
-                color: "#333",
-              }}
-            >
-              Apple
-            </Button>
-          </Box>
-
-          {/* Sign up */}
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ textAlign: "center" }}
-          >
-            Don't have an account?
-            <Button
-              component={Link}
-              to="/signup"
-              sx={{
-                p: 0,
-                minWidth: "auto",
-                textTransform: "none",
-              }}
-            >
-              Sign up
-            </Button>
-          </Typography>
-        </Box>
-      </Box>
-    </Paper>
+        </Paper>
+      </Container>
+    </Container>
   );
 }
 
