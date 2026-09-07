@@ -53,7 +53,7 @@ function AuthProvider({ children }) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:5173/Techmart/",
+        redirectTo: "https://belalaboskena.github.io/Techmart/",
       },
     });
 
@@ -65,7 +65,7 @@ function AuthProvider({ children }) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "facebook",
       options: {
-        redirectTo: "http://localhost:5173/Techmart/",
+        redirectTo: "https://belalaboskena.github.io/Techmart/",
       },
     });
 
