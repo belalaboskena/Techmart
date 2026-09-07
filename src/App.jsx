@@ -24,7 +24,7 @@ export default function App() {
           }
         />
         <Route
-          path="/Favourites"
+          path="/favourites"
           element={
             <ProtectedRoute>
               <Favourites />

@@ -16,8 +16,8 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import GoogleIcon from "@mui/icons-material/Google";
-import AppleIcon from "@mui/icons-material/Apple";
+import GoogleIcon from "../components/Googleicon";
+import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 import { supabase } from "../supabase";
 import { useState } from "react";
@@ -43,8 +43,6 @@ function SignUp() {
     }));
   };
   const handleSignup = async () => {
-    console.log(formData);
-
     const { data, error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
@@ -406,7 +404,7 @@ function SignUp() {
               <Button
                 fullWidth
                 variant="outlined"
-                startIcon={<AppleIcon />}
+                startIcon={<FacebookOutlinedIcon color="primary" />}
                 sx={{
                   height: 46,
                   borderRadius: 2,
@@ -415,7 +413,7 @@ function SignUp() {
                   borderColor: "divider",
                 }}
               >
-                Continue with Apple
+                Continue with Facebook
               </Button>
 
               {/* Login */}

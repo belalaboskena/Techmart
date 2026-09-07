@@ -13,22 +13,22 @@ import {
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import GoogleIcon from "@mui/icons-material/Google";
-import AppleIcon from "@mui/icons-material/Apple";
-
+import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+import GoogleIcon from "../components/Googleicon";
 import { supabase } from "../supabase";
-import {AuthContext} from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useState, useContext } from "react";
 
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { loginWithGoogle } = useContext(AuthContext);
+  const { loginWithGoogle, loginWithFacebook } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -40,7 +40,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email: formData.email,
       password: formData.password,
     });
@@ -51,14 +51,11 @@ function Login() {
       return;
     }
 
-    // Clear form
     setFormData({
       email: "",
       password: "",
     });
 
-    // Go to Home
-    navigate("/");
     const from = location.state?.from?.pathname || "/";
 
     navigate(from, { replace: true });
@@ -239,7 +236,13 @@ function Login() {
                 }}
               >
                 <Button
-                  onClick={loginWithGoogle}
+                  onClick={() => {
+                    const from = location.state?.from?.pathname || "/";
+
+                    sessionStorage.setItem("authRedirect", from);
+
+                    loginWithGoogle();
+                  }}
                   fullWidth
                   variant="outlined"
                   startIcon={<GoogleIcon />}
@@ -253,16 +256,23 @@ function Login() {
                 </Button>
 
                 <Button
+                  onClick={() => {
+                    const from = location.state?.from?.pathname || "/";
+
+                    sessionStorage.setItem("authRedirect", from);
+
+                    loginWithFacebook();
+                  }}
                   fullWidth
                   variant="outlined"
-                  startIcon={<AppleIcon />}
+                  startIcon={<FacebookOutlinedIcon color="primary" />}
                   sx={{
                     height: 46,
                     textTransform: "none",
                     color: "#333",
                   }}
                 >
-                  Apple
+                  Facebook
                 </Button>
               </Box>
 

@@ -25,6 +25,15 @@ function AuthProvider({ children }) {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
+
+      if (session?.user) {
+        const redirectPath = sessionStorage.getItem("authRedirect");
+
+        if (redirectPath) {
+          sessionStorage.removeItem("authRedirect");
+          window.location.hash = redirectPath;
+        }
+      }
     });
 
     return () => {
@@ -44,12 +53,24 @@ function AuthProvider({ children }) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "https://belalaboskena.github.io/Techmart/",
+        redirectTo: "http://localhost:5173/Techmart/",
       },
     });
 
     if (error) {
       console.error("Google login error:", error.message);
+    }
+  };
+  const loginWithFacebook = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "facebook",
+      options: {
+        redirectTo: "http://localhost:5173/Techmart/",
+      },
+    });
+
+    if (error) {
+      console.error("Facebook login error:", error.message);
     }
   };
   return (
@@ -60,6 +81,7 @@ function AuthProvider({ children }) {
         loading,
         logout,
         loginWithGoogle,
+        loginWithFacebook,
       }}
     >
       {children}

@@ -195,7 +195,7 @@ function Shop() {
           setLoading(false);
         });
     }
-  }, [category, NewarrivalsIDS, BestsellersIDS, SallesIDS]);
+  }, []);
 
   if (loading) {
     return <FavouriteLoading />;
