@@ -102,10 +102,7 @@ const Storeprovider = ({ children }) => {
 
   const togglecart = async (id, weight, price, stock) => {
     if (!user) {
-      showSnackbar(
-        "Please login first to add products to your cart.",
-        "warning",
-      );
+      showSnackbar("Please login first.", "warning");
       return;
     }
 
@@ -237,10 +234,7 @@ const Storeprovider = ({ children }) => {
   };
   const toggleFavourite = async (id) => {
     if (!user) {
-      showSnackbar(
-        "Please login first to add products to your wishlist.",
-        "warning",
-      );
+      showSnackbar("Please login first.", "warning");
       return;
     }
 

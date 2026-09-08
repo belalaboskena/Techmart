@@ -85,7 +85,7 @@ function HomeHeader() {
           <Box
             sx={{
               marginBottom: { xs: "10px", md: "0px" },
-              order: { xs: 3, md: 3 },
+              order: { xs: 3 },
               width: {
                 xs: "100%",
                 md: 420,

@@ -62,28 +62,43 @@ function Login() {
   };
   return (
     <Container
-      maxWidth="false"
+      maxWidth={false}
+      disableGutters
       sx={{
         bgcolor: "#f5f7fb",
-        p: "0px",
+        minHeight: "100vh",
       }}
     >
       <Container
         maxWidth="sm"
+        disableGutters
         sx={{
           minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          p: {
-            xs: 0,
+
+          // Mobile
+          p: 0,
+
+          // Desktop
+          sm: {
+            p: 2,
           },
         }}
       >
         <Paper
           elevation={0}
           sx={{
-            width: "100%",
+            width: {
+              xs: "100vw",
+              sm: "100%",
+            },
+            minHeight: {
+              xs: "100vh",
+              sm: "auto",
+            },
+            height: "100%",
             borderRadius: 4,
             border: "1px solid",
             borderColor: "divider",
