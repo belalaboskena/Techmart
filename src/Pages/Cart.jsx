@@ -40,18 +40,7 @@ function Cart() {
         <Grid container spacing={4}>
           {/* Cart Items */}
           <Grid size={{ xs: 12, lg: 8 }}>
-            <Box
-              sx={{
-                maxHeight: "calc(100vh - 120px)",
-                overflowY: "auto",
-
-                "&::-webkit-scrollbar": {
-                  width: 0,
-                },
-
-                scrollbarWidth: "none",
-              }}
-            >
+            <Box>
               <CartItems />
             </Box>
             <CartFooter />

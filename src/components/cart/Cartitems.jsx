@@ -80,9 +80,18 @@ function CartItems() {
   return (
     <Box
       sx={{
-        height: "calc(100vh - 140px)",
-        overflowY: "auto",
-        pr: 2,
+        height: {
+          sm: "auto",
+          lg: "calc(100vh - 140px)",
+        },
+        overflowY: {
+          sm: "visible",
+          lg: "auto",
+        },
+        pr: {
+          sm: 0,
+          lg: 2,
+        },
 
         "&::-webkit-scrollbar": {
           width: "6px",
@@ -107,36 +116,36 @@ function CartItems() {
               flexDirection: { xs: "column", sm: "row" },
               justifyContent: "space-between",
               alignItems: { xs: "stretch", sm: "center" },
-              gap: { xs: 3, sm: 2 },
-              p: { xs: 2, sm: 3 },
+              gap: { xs: 2, sm: 2 },
+              p: { xs: 1.5, sm: 3 },
               mb: 3,
               borderRadius: 3,
               bgcolor: "#ebebeb",
             }}
           >
             {/* Left */}
-
             <Box
               sx={{
                 display: "flex",
-                flexDirection: { xs: "column", sm: "row" },
-                gap: { xs: 2, sm: 3 },
-                alignItems: { xs: "stretch", sm: "center" },
+                flexDirection: "row",
+                gap: { xs: 3, sm: 3 },
+                alignItems: "center",
                 flex: 1,
                 minWidth: 0,
               }}
             >
-              <Link key={product.id} to={`/product/${product.id}`}>
+              <Link to={`/product/${product.id}`}>
                 <CardMedia
                   component="img"
                   image={product.thumbnail}
                   alt={product.title}
                   sx={{
-                    width: { xs: "100%", sm: 120 },
-                    height: { xs: 180, sm: 120 },
+                    width: { xs: 100, sm: 120 },
+                    height: { xs: 100, sm: 120 },
                     objectFit: "contain",
                     bgcolor: "white",
                     borderRadius: 2,
+                    flexShrink: 0,
                   }}
                 />
               </Link>
@@ -144,10 +153,10 @@ function CartItems() {
               <Box
                 sx={{
                   minWidth: 0,
+                  flex: 1,
                 }}
               >
                 <Link
-                  key={product.id}
                   to={`/product/${product.id}`}
                   style={{
                     textDecoration: "none",
@@ -159,10 +168,14 @@ function CartItems() {
                     fontWeight={600}
                     sx={{
                       fontSize: {
-                        xs: "1.1rem",
+                        xs: "1rem",
                         sm: "1.25rem",
                         md: "1.5rem",
                       },
+                      display: "-webkit-box",
+                      WebkitLineClamp: { xs: 2, sm: 1 },
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
                     }}
                   >
                     {product.title}
@@ -172,8 +185,9 @@ function CartItems() {
                 <Typography
                   sx={{
                     color: "text.secondary",
-                    mt: 1,
-                    mb: 2,
+                    mt: 0.5,
+                    mb: 1,
+                    fontSize: { xs: "0.85rem", sm: "1rem" },
                   }}
                 >
                   {product.brand}
@@ -182,7 +196,7 @@ function CartItems() {
                 <Box
                   sx={{
                     display: "flex",
-                    gap: 2,
+                    gap: { xs: 1.5, sm: 2 },
                     flexWrap: "wrap",
                   }}
                 >
@@ -201,6 +215,7 @@ function CartItems() {
                         : "text.secondary",
                       p: 0,
                       minWidth: "auto",
+                      fontSize: { xs: "0.8rem", sm: "0.875rem" },
 
                       "&:hover": {
                         background: "transparent",
@@ -208,9 +223,9 @@ function CartItems() {
                       },
                     }}
                     onClick={(e) => {
-                      toggleFavourite(product.id);
                       e.preventDefault();
                       e.stopPropagation();
+                      toggleFavourite(product.id);
                     }}
                   >
                     Save
@@ -219,15 +234,16 @@ function CartItems() {
                   <Button
                     startIcon={<DeleteOutlineOutlinedIcon />}
                     onClick={(e) => {
-                      togglecart(product.id);
                       e.preventDefault();
                       e.stopPropagation();
+                      togglecart(product.id);
                     }}
                     sx={{
                       textTransform: "none",
                       color: "text.secondary",
                       p: 0,
                       minWidth: "auto",
+                      fontSize: { xs: "0.8rem", sm: "0.875rem" },
 
                       "&:hover": {
                         background: "transparent",
@@ -242,14 +258,10 @@ function CartItems() {
             </Box>
 
             {/* Right */}
-
             <Box
               sx={{
                 display: "flex",
-                flexDirection: {
-                  xs: "row",
-                  sm: "column",
-                },
+                flexDirection: { xs: "row", sm: "column" },
                 justifyContent: {
                   xs: "space-between",
                   sm: "center",
@@ -258,13 +270,13 @@ function CartItems() {
                   xs: "center",
                   sm: "flex-end",
                 },
-                gap: 2,
+                gap: { xs: 1, sm: 2 },
                 width: {
                   xs: "100%",
                   sm: "auto",
                 },
                 pt: {
-                  xs: 2,
+                  xs: 1.5,
                   sm: 0,
                 },
                 borderTop: {
@@ -274,7 +286,6 @@ function CartItems() {
               }}
             >
               {/* Quantity */}
-
               <Box
                 sx={{
                   display: "flex",
@@ -282,16 +293,20 @@ function CartItems() {
                   border: "1px solid #ddd",
                   borderRadius: 2,
                   bgcolor: "white",
+                  width: { xs: "100px", sm: "fit-content" },
+                  justifyContent: "center",
                 }}
               >
-                <IconButton disabled={cartItem?.quantity === 1}>
-                  <RemoveIcon
-                    onClick={(e) => {
-                      decreaseQuantity(product.id);
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }}
-                  />
+                <IconButton
+                  size="small"
+                  disabled={cartItem?.quantity === 1}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    decreaseQuantity(product.id);
+                  }}
+                >
+                  <RemoveIcon fontSize="small" />
                 </IconButton>
 
                 <Typography
@@ -299,6 +314,7 @@ function CartItems() {
                     minWidth: 25,
                     textAlign: "center",
                     fontWeight: 500,
+                    fontSize: "0.9rem",
                   }}
                 >
                   {
@@ -307,26 +323,27 @@ function CartItems() {
                   }
                 </Typography>
 
-                <IconButton disabled={cartItem?.quantity === cartItem?.stock}>
-                  <AddIcon
-                    onClick={(e) => {
-                      increaseQuantity(product.id);
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }}
-                  />
+                <IconButton
+                  size="small"
+                  disabled={cartItem?.quantity === cartItem?.stock}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    increaseQuantity(product.id);
+                  }}
+                >
+                  <AddIcon fontSize="small" />
                 </IconButton>
               </Box>
 
               {/* Price */}
-
               <Typography
                 variant="h5"
                 color="primary"
                 fontWeight={700}
                 sx={{
                   fontSize: {
-                    xs: "1.2rem",
+                    xs: "1.1rem",
                     sm: "1.5rem",
                   },
                   whiteSpace: "nowrap",
