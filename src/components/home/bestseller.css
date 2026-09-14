@@ -2,11 +2,7 @@
   transition: 0.35s;
   background-color: var(--surface);
 }
-.bestseler-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-}
+
 .bestseler-cardMedia {
   background-color: var(--background) !important;
   height: 300px;
@@ -29,5 +25,12 @@
 @media (max-width: 900px) {
   .cardMedia {
     height: 150px;
+  }
+}
+@media (min-width: 1024px) {
+  .bestseler-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
   }
 }

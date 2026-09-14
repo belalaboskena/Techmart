@@ -31,8 +31,12 @@
   height: auto;
   object-fit: cover;
 }
-.slider-card:hover {
+
+
+@media (min-width: 1024px) {
+  .slider-card:hover {
   transition: 0.3s;
   transform: translateY(-4px);
   box-shadow: 0px 9px 9px 0px rgba(0, 0, 0, 0.12);
+}
 }

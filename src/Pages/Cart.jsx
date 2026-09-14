@@ -22,17 +22,29 @@ function Cart() {
       <Container maxWidth="lg" sx={{ py: 5 }}>
         <Typography
           gutterBottom
-          variant="h4"
           component="div"
-          sx={{ textAlign: "center" }}
+          sx={{
+            textAlign: "center",
+            fontWeight: 500,
+            fontSize: {
+              xs: "2rem",
+              md: "2rem",
+            },
+          }}
         >
           Shopping Cart
         </Typography>
         <Typography
           gutterBottom
-          variant="h6"
           component="div"
-          sx={{ textAlign: "center", marginBottom: "50px" }}
+          sx={{
+            textAlign: "center",
+            marginBottom: "50px",
+            fontSize: {
+              xs: "1rem",
+              md: "1.5rem",
+            },
+          }}
         >
           Review your selected items, update quantities, or remove products
           before proceeding to checkout.

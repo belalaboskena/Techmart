@@ -207,17 +207,29 @@ function Shop() {
       <Container maxWidth="lg" sx={{ padding: "50px" }}>
         <Typography
           gutterBottom
-          variant="h4"
           component="div"
-          sx={{ textAlign: "center" }}
+          sx={{
+            textAlign: "center",
+            fontWeight: 500,
+            fontSize: {
+              xs: "2rem",
+              md: "2rem",
+            },
+          }}
         >
           {info.title}
         </Typography>
         <Typography
           gutterBottom
-          variant="h6"
           component="div"
-          sx={{ textAlign: "center", marginBottom: "50px" }}
+          sx={{
+            textAlign: "center",
+            marginBottom: "50px",
+            fontSize: {
+              xs: "1rem",
+              md: "1.5rem",
+            },
+          }}
         >
           {info.description}
         </Typography>

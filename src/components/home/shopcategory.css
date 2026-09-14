@@ -15,9 +15,7 @@
 .paper img {
   transition: 0.4s;
 }
-.paper:hover img {
-  transform: scale(1.08);
-}
+
 .paper .content {
   position: absolute;
   text-align: left;
@@ -128,5 +126,10 @@
   }
   .paper .content h2 {
     font-size: 16px;
+  }
+}
+@media (min-width: 1024px) {
+  .paper:hover img {
+    transform: scale(1.08);
   }
 }

@@ -55,17 +55,29 @@ function Newarrivals() {
       <Container maxWidth="lg">
         <Typography
           gutterBottom
-          variant="h4"
           component="div"
-          sx={{ textAlign: "center" }}
+          sx={{
+            textAlign: "center",
+            fontWeight: 500,
+            fontSize: {
+              xs: "2rem",
+              md: "2rem",
+            },
+          }}
         >
           New Arrivals
         </Typography>
         <Typography
           gutterBottom
-          variant="h5"
           component="div"
-          sx={{ textAlign: "center", marginBottom: "50px" }}
+          sx={{
+            textAlign: "center",
+            marginBottom: "50px",
+            fontSize: {
+              xs: "1rem",
+              md: "1.5rem",
+            },
+          }}
         >
           Stay ahead of the curve with our newest additions to the TechMart
           collection.

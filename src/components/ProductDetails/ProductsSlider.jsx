@@ -88,7 +88,10 @@ export default function ProductsSlider({ product }) {
               <Link to={`/product/${product.id}`}>
                 <Card
                   className="slider-card"
-                  sx={{ Width: "100%", borderRadius: "18px" }}
+                  sx={{
+                    Width: "100%",
+                    borderRadius: "18px",
+                  }}
                 >
                   <div
                     style={{
@@ -200,15 +203,15 @@ export default function ProductsSlider({ product }) {
                         component="div"
                         sx={{
                           textAlign: "center",
-                          visibility: SallesIDS.includes(product.id)
-                            ? "visible"
-                            : "hidden",
+                          display: SallesIDS.includes(product.id)
+                            ? "block"
+                            : "none",
                         }}
                       >
                         ${product.price}
                       </Typography>
                     </div>
-                    <div className="icons">
+                    <div className="icons" style={{ minWidth: "68px" }}>
                       {" "}
                       <IconButton
                         className="iconbutton"

@@ -48,17 +48,29 @@ function Salles() {
       <Container maxWidth="lg">
         <Typography
           gutterBottom
-          variant="h4"
           component="div"
-          sx={{ textAlign: "center" }}
+          sx={{
+            textAlign: "center",
+            fontWeight: 500,
+            fontSize: {
+              xs: "1.6rem",
+              md: "2rem",
+            },
+          }}
         >
           Exclusive Clearance Sale
         </Typography>
         <Typography
           gutterBottom
-          variant="h5"
           component="div"
-          sx={{ textAlign: "center", marginBottom: "50px" }}
+          sx={{
+            textAlign: "center",
+            marginBottom: "50px",
+            fontSize: {
+              xs: "1rem",
+              md: "1.5rem",
+            },
+          }}
         >
           Limited time offers on premium tech accessories. Up to 60% Off!
         </Typography>
