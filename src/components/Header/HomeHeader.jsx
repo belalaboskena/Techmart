@@ -37,6 +37,7 @@ function MainHeader() {
   const positionRef = useRef(0);
   const startXRef = useRef(0);
   const startPositionRef = useRef(0);
+  const isDraggingRef = useRef(false);
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -58,8 +59,8 @@ function MainHeader() {
     if (!slider) return;
 
     const animate = () => {
-      if (!isDragging) {
-        positionRef.current -= 0.3;
+      if (!isDraggingRef.current) {
+        positionRef.current -= 0.25;
 
         const halfWidth = slider.scrollWidth / 2;
 
@@ -67,7 +68,7 @@ function MainHeader() {
           positionRef.current = 0;
         }
 
-        slider.style.transform = `translateX(${positionRef.current}px)`;
+        slider.style.transform = `translate3d(${positionRef.current}px, 0, 0)`;
       }
 
       animationRef.current = requestAnimationFrame(animate);
@@ -78,10 +79,11 @@ function MainHeader() {
     return () => {
       cancelAnimationFrame(animationRef.current);
     };
-  }, [isDragging]);
+  }, []);
 
   // Start dragging
   const handlePointerDown = (e) => {
+    isDraggingRef.current = true;
     setIsDragging(true);
 
     startXRef.current = e.clientX;
@@ -92,7 +94,7 @@ function MainHeader() {
 
   // Dragging
   const handlePointerMove = (e) => {
-    if (!isDragging) return;
+    if (!isDraggingRef.current || !sliderRef.current) return;
 
     const difference = e.clientX - startXRef.current;
 
@@ -100,7 +102,6 @@ function MainHeader() {
 
     const halfWidth = sliderRef.current.scrollWidth / 2;
 
-    // Prevent dragging too far
     if (newPosition > 0) {
       newPosition = 0;
     }
@@ -111,12 +112,17 @@ function MainHeader() {
 
     positionRef.current = newPosition;
 
-    sliderRef.current.style.transform = `translateX(${newPosition}px)`;
+    sliderRef.current.style.transform = `translate3d(${newPosition}px, 0, 0)`;
   };
 
   // Stop dragging
-  const handlePointerUp = () => {
+  const handlePointerUp = (e) => {
+    isDraggingRef.current = false;
     setIsDragging(false);
+
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
   };
 
   return (
@@ -157,23 +163,21 @@ function MainHeader() {
               overflow: "hidden",
               cursor: isDragging ? "grabbing" : "grab",
               touchAction: "pan-y",
+              WebkitUserSelect: "none",
               userSelect: "none",
             }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
-            onPointerLeave={(e) => {
-              if (isDragging) {
-                handlePointerUp();
-              }
-            }}
+          
           >
             <Box
               ref={sliderRef}
               sx={{
                 display: "flex",
                 width: "max-content",
+                willChange: "transform",
               }}
             >
               {/* First set */}
@@ -198,8 +202,6 @@ function MainHeader() {
                       px: 1,
                       minWidth: "fit-content",
                       whiteSpace: "nowrap",
-
-                     
                     }}
                   >
                     {link.title}
@@ -229,8 +231,6 @@ function MainHeader() {
                       px: 1,
                       minWidth: "fit-content",
                       whiteSpace: "nowrap",
-
-                     
                     }}
                   >
                     {link.title}
