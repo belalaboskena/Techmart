@@ -38,7 +38,6 @@ function Home() {
       <section>
         <Hero />
       </section>
-
       <section id="shop">
         <ShopbyCategory />
       </section>

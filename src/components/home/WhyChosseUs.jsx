@@ -41,11 +41,18 @@ function WhyChosseUs() {
       <Container maxWidth="lg">
         <Typography
           gutterBottom
-          variant="h4"
           component="div"
-          sx={{ textAlign: "center", marginBottom: "50px" }}
+          sx={{
+            textAlign: "center",
+            marginBottom: "50px",
+            fontWeight: 500,
+            fontSize: {
+              xs: "1.7rem",
+              md: "2rem",
+            },
+          }}
         >
-          Why Choose Us{" "}
+          Why Choose Us
         </Typography>
 
         <Box sx={{ flexGrow: 1 }}>

@@ -39,9 +39,16 @@ function Reviews() {
     <Container maxWidth="lg" sx={{ marginBottom: "50px" }}>
       <Typography
         gutterBottom
-        variant="h4"
         component="div"
-        sx={{ textAlign: "center", marginBottom: "50px" }}
+        sx={{
+          textAlign: "center",
+          marginBottom: "50px",
+          fontWeight: 500,
+          fontSize: {
+            xs: "1.4rem",
+            md: "2rem",
+          },
+        }}
       >
         What Our Customers Say
       </Typography>

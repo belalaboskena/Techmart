@@ -8,7 +8,7 @@ export default function MainLayout() {
       <main>
         <Outlet />
       </main>
-      <section id="support">
+      <section id="contact">
         <Footer />
       </section>
     </>
