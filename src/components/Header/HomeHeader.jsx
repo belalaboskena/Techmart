@@ -199,10 +199,7 @@ function MainHeader() {
                       minWidth: "fit-content",
                       whiteSpace: "nowrap",
 
-                      "&:hover": {
-                        bgcolor: "transparent",
-                        borderBottom: "2px solid #fff",
-                      },
+                     
                     }}
                   >
                     {link.title}
@@ -233,10 +230,7 @@ function MainHeader() {
                       minWidth: "fit-content",
                       whiteSpace: "nowrap",
 
-                      "&:hover": {
-                        bgcolor: "transparent",
-                        borderBottom: "2px solid #fff",
-                      },
+                     
                     }}
                   >
                     {link.title}
