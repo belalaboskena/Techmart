@@ -50,150 +50,155 @@ function Bestsellers() {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ marginBottom: "50px", paddingTop: "50px" }}>
-      <Typography
-        gutterBottom
-        component="div"
-        sx={{
-          textAlign: "center",
-          fontWeight: 500,
-          fontSize: {
-            xs: "2rem",
-            md: "2rem",
-          },
-        }}
+    <Container maxWidth="false">
+      <Container
+        maxWidth="lg"
+        sx={{ marginBottom: "50px", paddingTop: "50px" }}
       >
-        Best sellers
-      </Typography>
-      <Typography
-        gutterBottom
-        component="div"
-        sx={{
-          textAlign: "center",
-          marginBottom: "50px",
-          fontSize: {
-            xs: "1rem",
-            md: "1.5rem",
-          },
-        }}
-      >
-        Our most loved products, rated for excellence and performance by the
-        TechMart community.
-      </Typography>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          {products.slice(0, 4).map((product) => (
-            <Grid key={product.id} size={{ xs: 12, sm: 6, lg: 3 }}>
-              <Link to={`/product/${product.id}`}>
-                <Card className="bestseler-card" sx={{ width: "100%" }}>
-                  <CardMedia
-                    className="bestseler-cardMedia"
-                    title={product.title}
-                  >
-                    <img src={product.thumbnail}></img>
-                    <div className="patches">
-                      <Typography
-                        variant="caption"
-                        className="bestseller-patch"
-                      >
-                        BEST SELLER
-                      </Typography>
-                    </div>
-                  </CardMedia>
-                  <CardContent className="bestseler-cardcontent">
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      component="div"
-                      sx={{
-                        display: "-webkit-box",
-                        WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 1,
-                        overflow: "hidden",
-                      }}
+        <Typography
+          gutterBottom
+          component="div"
+          sx={{
+            textAlign: "center",
+            fontWeight: 500,
+            fontSize: {
+              xs: "2rem",
+              md: "2rem",
+            },
+          }}
+        >
+          Best sellers
+        </Typography>
+        <Typography
+          gutterBottom
+          component="div"
+          sx={{
+            textAlign: "center",
+            marginBottom: "50px",
+            fontSize: {
+              xs: "1rem",
+              md: "1.5rem",
+            },
+          }}
+        >
+          Our most loved products, rated for excellence and performance by the
+          TechMart community.
+        </Typography>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            {products.slice(0, 4).map((product) => (
+              <Grid key={product.id} size={{ xs: 12, sm: 6, lg: 3 }}>
+                <Link to={`/product/${product.id}`}>
+                  <Card className="bestseler-card" sx={{ width: "100%" }}>
+                    <CardMedia
+                      className="bestseler-cardMedia"
+                      title={product.title}
                     >
-                      {product.title}
-                    </Typography>
-                    <Typography
-                      className="price"
-                      gutterBottom
-                      variant="h6"
-                      component="div"
-                    >
-                      ${product.price}
-                    </Typography>
-                    <CardActions
-                      sx={{
-                        padding: "0px",
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Rating
-                        name="read-only"
-                        value={parseInt(product.rating)}
-                        readOnly
-                      />
-                      <div className="icons">
-                        <IconButton
-                          className="iconbutton"
-                          size="small"
-                          aria-label="show 17 new notifications"
-                          color="inherit"
-                          onClick={(e) => {
-                            toggleFavourite(product.id);
-                            e.preventDefault();
-                            e.stopPropagation();
-                          }}
+                      <img src={product.thumbnail}></img>
+                      <div className="patches">
+                        <Typography
+                          variant="caption"
+                          className="bestseller-patch"
                         >
-                          {reducerproducts.favourites.includes(product.id) ? (
-                            <FavoriteIcon color="error" />
-                          ) : (
-                            <FavoriteBorderOutlinedIcon />
-                          )}
-                        </IconButton>
-                        <IconButton
-                          className="iconbutton"
-                          size="small"
-                          aria-label="show 17 new notifications"
-                          color="inherit"
-                          onClick={(e) => {
-                            togglecart(
-                              product.id,
-                              product.weight,
-                              product.price,
-                              product.stock,
-                            );
-                            e.preventDefault();
-                            e.stopPropagation();
-                          }}
-                        >
-                          {reducerproducts.cart.some(
-                            (item) => item.id === product.id,
-                          ) ? (
-                            <ShoppingCartIcon color="primary" />
-                          ) : (
-                            <ShoppingCartOutlinedIcon />
-                          )}
-                        </IconButton>
+                          BEST SELLER
+                        </Typography>
                       </div>
-                    </CardActions>
-                  </CardContent>
-                </Card>
-              </Link>
-            </Grid>
-          ))}
-          <Link
-            to="/shop/best-sellers"
-            style={{
-              margin: "auto",
-              display: BestsellersIDS.length > 4 ? "block" : "none",
-            }}
-          >
-            <Button variant="contained">View More</Button>
-          </Link>
-        </Grid>
-      </Box>
+                    </CardMedia>
+                    <CardContent className="bestseler-cardcontent">
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 1,
+                          overflow: "hidden",
+                        }}
+                      >
+                        {product.title}
+                      </Typography>
+                      <Typography
+                        className="price"
+                        gutterBottom
+                        variant="h6"
+                        component="div"
+                      >
+                        ${product.price}
+                      </Typography>
+                      <CardActions
+                        sx={{
+                          padding: "0px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Rating
+                          name="read-only"
+                          value={parseInt(product.rating)}
+                          readOnly
+                        />
+                        <div className="icons">
+                          <IconButton
+                            className="iconbutton"
+                            size="small"
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                            onClick={(e) => {
+                              toggleFavourite(product.id);
+                              e.preventDefault();
+                              e.stopPropagation();
+                            }}
+                          >
+                            {reducerproducts.favourites.includes(product.id) ? (
+                              <FavoriteIcon color="error" />
+                            ) : (
+                              <FavoriteBorderOutlinedIcon />
+                            )}
+                          </IconButton>
+                          <IconButton
+                            className="iconbutton"
+                            size="small"
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                            onClick={(e) => {
+                              togglecart(
+                                product.id,
+                                product.weight,
+                                product.price,
+                                product.stock,
+                              );
+                              e.preventDefault();
+                              e.stopPropagation();
+                            }}
+                          >
+                            {reducerproducts.cart.some(
+                              (item) => item.id === product.id,
+                            ) ? (
+                              <ShoppingCartIcon color="primary" />
+                            ) : (
+                              <ShoppingCartOutlinedIcon />
+                            )}
+                          </IconButton>
+                        </div>
+                      </CardActions>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Grid>
+            ))}
+            <Link
+              to="/shop/best-sellers"
+              style={{
+                margin: "auto",
+                display: BestsellersIDS.length > 4 ? "block" : "none",
+              }}
+            >
+              <Button variant="contained">View More</Button>
+            </Link>
+          </Grid>
+        </Box>
+      </Container>
     </Container>
   );
 }
